@@ -1,8 +1,5 @@
 package backoffice.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  *       BackOffice menu
@@ -11,11 +8,13 @@ import java.util.List;
 
 public class Menu {
 
-    private Section[] section;
+    private SectionInterface[] sections;
     private boolean includeSearch = false;
+    private NavBar navBar = null;
 
-    public Menu( Section[] section ){
+    public Menu( SectionInterface[] sections ){
 
+        this.sections = sections;
     }
 
     public Menu withSearch(){
@@ -132,4 +131,13 @@ public class Menu {
 
     }
 
+    public Menu withNavbar(NavBar navbar) {
+
+        this.navBar = navbar;
+        return this;
+    }
+
+    public NavBar getNavBar() {
+        return navBar;
+    }
 }

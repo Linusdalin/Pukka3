@@ -1,6 +1,10 @@
 package backoffice;
 
 import backoffice.menu.Menu;
+import backoffice.menu.NavBar;
+import backoffice.modules.messages.MessageManager;
+import backoffice.modules.notifications.NotificationManager;
+import backoffice.modules.tasks.TaskManager;
 import backoffice.pages.EmptyPage;
 import backoffice.pages.PageInterface;
 
@@ -23,6 +27,7 @@ abstract public class GenericBackoffice {
     private String title = "Default Title";
     private List<PageInterface> pages = new ArrayList<PageInterface>();
     private PageInterface homePage;
+
 
     public GenericBackoffice(){
 
@@ -84,6 +89,11 @@ abstract public class GenericBackoffice {
     public PageInterface getWelcomePage() {
 
         return homePage;
+    }
+
+    public NavBar getNavbar() {
+
+        return menu.getNavBar();
     }
 
 

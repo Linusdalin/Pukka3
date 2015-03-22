@@ -1,6 +1,7 @@
 package backoffice;
 
 import backoffice.menu.Menu;
+import backoffice.menu.NavBar;
 import backoffice.pages.PageInterface;
 
 /**
@@ -17,4 +18,6 @@ public interface BackofficeInterface {
     PageInterface getPageByName(String pageName);
     String getSystemTitle();
     PageInterface getWelcomePage();
+
+    NavBar getNavbar();
 }
