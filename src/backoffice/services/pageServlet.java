@@ -2,7 +2,6 @@ package backoffice.services;
 
 import backoffice.BackofficeFactory;
 import backoffice.BackofficeInterface;
-import backoffice.menu.NavBar;
 import backoffice.pages.PageInterface;
 import style.Html;
 import style.pageComponents.BrandTitle;
@@ -12,13 +11,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
+/****************************************************************************
  *
- *              Servlet to serve a generic page
+ *              Servlet to serve a generic page in the backOffice.
+ *
+ *              This is used for all pages with the navigation menu
  *
  */
 
 public class pageServlet extends HttpServlet {
+
+    /*************************************************************************''
+     *
+     *              Get page
+     *
+     *
+     * @param req           - request
+     * @param resp          - response
+     * @throws IOException
+     */
+
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)throws IOException {
 
@@ -134,6 +146,14 @@ public class pageServlet extends HttpServlet {
 
 
         resp.getWriter().print(html.toString());
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        resp.setHeader("Access-Control-Max-Age", "" + (24 * 60 * 60));
+        resp.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
+
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html");
         resp.flushBuffer();
 
     }

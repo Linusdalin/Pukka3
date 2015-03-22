@@ -2,9 +2,6 @@ package backoffice;
 
 import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
-import backoffice.modules.messages.MessageManager;
-import backoffice.modules.notifications.NotificationManager;
-import backoffice.modules.tasks.TaskManager;
 import backoffice.pages.EmptyPage;
 import backoffice.pages.PageInterface;
 
@@ -14,9 +11,9 @@ import java.util.List;
 /**********************************************************************''''
  *
  *
- *          General Backoffice functionality.
+ *          General BackOffice functionality.
  *
- *          All backoffice implementations extends this interface
+ *          All backOffice implementations extends this interface
  *
  *
  */

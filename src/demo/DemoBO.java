@@ -3,6 +3,7 @@ package demo;
 import backoffice.BackofficeInterface;
 import backoffice.GenericBackoffice;
 import backoffice.menu.*;
+import backoffice.pages.EmptyPage;
 import backoffice.pages.PageInterface;
 
 /**
@@ -65,11 +66,12 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
 
             new SectionInterface[] {
 
-                    new SectionPage("Home", DemoPage),
+                    new SectionPage("Home", Icon.arrowsH, DemoPage),
 
-                    new SectionContainer("Test", new SectionInterface[] {
+                    new SectionContainer("Test", Icon.arrowsV, new SectionInterface[] {
 
-                            new SectionPage("Other", DemoPage),
+                            new SectionSub("Other", DemoPage),
+                            new SectionSub("Other2", DemoPage),
 
                     }),
 

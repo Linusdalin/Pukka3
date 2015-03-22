@@ -8,4 +8,7 @@ package backoffice.menu;
  * To change this template use File | Settings | File Templates.
  */
 public interface SectionInterface {
+
+
+    String render(int level);
 }

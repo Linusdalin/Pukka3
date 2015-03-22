@@ -2,14 +2,14 @@ package backoffice.menu;
 
 /**
  *
- *       BackOffice menu
+ *       BackOffice Menu
  *
  */
 
 public class Menu {
 
     private SectionInterface[] sections;
-    private boolean includeSearch = false;
+    private SearchComponent searchComponent = null;
     private NavBar navBar = null;
 
     public Menu( SectionInterface[] sections ){
@@ -19,12 +19,57 @@ public class Menu {
 
     public Menu withSearch(){
 
-        includeSearch = true;
+        searchComponent = new SearchComponent();
         return this;
     }
 
+    /***************************************************************************'
+     *
+     *          Render menu section
+     *          (adding optional search)
+     *
+     *
+     * @return
+     */
 
     public String render(){
+
+        StringBuffer menu = new StringBuffer();
+
+        menu.append(    "            <div class=\"navbar-default sidebar\" role=\"navigation\">\n" +
+                        "                <div class=\"sidebar-nav navbar-collapse\">\n" +
+                        "                    <ul class=\"nav\" id=\"side-menu\">\n");
+
+        // Add optional search component
+
+        if(searchComponent != null){
+
+            menu.append(searchComponent.render());
+        }
+        else{
+            menu.append("<!-- No search configured ->");
+        }
+
+        // Recursively render the sections in the tree. Starting at level 1
+
+        for (SectionInterface section : sections) {
+
+            menu.append(section.render( 1 ));
+
+        }
+
+        menu.append(
+                "                    </ul>\n" +
+                "                </div>\n" +
+                "                <!-- /.sidebar-collapse -->\n" +
+                "            </div>\n"
+
+        );
+
+        return menu.toString();
+    }
+
+    public String renderNew(){
 
         return(
 
@@ -37,7 +82,7 @@ public class Menu {
                 "                            <a href=\"index.html\"><i class=\"fa fa-dashboard fa-fw\"></i> Home</a>\n" +
                 "                        </li>\n" +
                 "                        <li>\n" +
-                "                            <a href=\"#\"><i class=\"fa fa-bar-chart-o fa-fw\"></i> Charts<span class=\"fa arrow\"></span></a>\n" +
+                "                            <a href=\"#\"><i class=\"fa fa-bar-chart-o fa-fw\"></i> Home2<span class=\"fa arrow\"></span></a>\n" +
                 "                            <ul class=\"nav nav-second-level\">\n" +
                 "                                <li>\n" +
                 "                                    <a href=\"flot.html\">Flot Charts</a>\n" +
