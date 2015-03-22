@@ -7,25 +7,37 @@ import backoffice.pages.PageInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Linus
- * Date: 2015-03-21
- * Time: 22:00
- * To change this template use File | Settings | File Templates.
+/**********************************************************************''''
+ *
+ *
+ *          General Backoffice functionality.
+ *
+ *          All backoffice implementations extends this interface
+ *
+ *
  */
 
 abstract public class GenericBackoffice {
 
-    protected Menu menu;
-    List<PageInterface> pages = new ArrayList<PageInterface>();
+    private Menu menu;
+    private String title = "Default Title";
+    private List<PageInterface> pages = new ArrayList<PageInterface>();
+    private PageInterface homePage;
 
     public GenericBackoffice(){
 
         //Standard components for all systems
         pages.add(new EmptyPage());
 
+
     }
+
+    protected void setMenu(Menu menu) {
+
+        this.menu = menu;
+    }
+
+
 
     public Menu getMenu() {
 
@@ -52,6 +64,26 @@ abstract public class GenericBackoffice {
 
         pages.add(page);
 
+    }
+
+    public void setTitle(String title){
+
+        this.title = title;
+    }
+
+
+    public String getSystemTitle() {
+        return title;
+    }
+
+    protected void setWelcomePage(PageInterface page) {
+
+        this.homePage = page;
+    }
+
+    public PageInterface getWelcomePage() {
+
+        return homePage;
     }
 
 

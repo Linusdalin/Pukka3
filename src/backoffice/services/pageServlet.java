@@ -3,6 +3,8 @@ package backoffice.services;
 import backoffice.BackofficeFactory;
 import backoffice.BackofficeInterface;
 import backoffice.pages.PageInterface;
+import style.Html;
+import style.pageComponents.BrandTitle;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +17,7 @@ import java.io.IOException;
  *
  */
 
-public class PageServlet extends HttpServlet {
+public class pageServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)throws IOException {
 
@@ -39,9 +41,9 @@ public class PageServlet extends HttpServlet {
                 "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
                 "    <meta name=\"description\" content=\"\">\n" +
                 "    <meta name=\"author\" content=\"\">\n" +
-                "\n" +
-                "    <title>SB Admin 2 - Pukka admin</title>\n" +
-                "\n" +
+
+                Html.title( backoffice.getSystemTitle() ) +
+
                 "    <!-- Bootstrap Core CSS -->\n" +
                 "    <link href=\"adminCommon/bower_components/bootstrap/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
                 "\n" +
@@ -82,7 +84,7 @@ public class PageServlet extends HttpServlet {
                 "                    <span class=\"icon-bar\"></span>\n" +
                 "                    <span class=\"icon-bar\"></span>\n" +
                 "                </button>\n" +
-                "                <a class=\"navbar-brand\" href=\"index.html\">SB Admin v2.0</a>\n" +
+                new BrandTitle(backoffice).render() +
                 "            </div>\n" +
                 "            <!-- /.navbar-header -->\n" +
                 "\n" +

@@ -15,4 +15,6 @@ public interface BackofficeInterface {
     Menu getMenu();
 
     PageInterface getPageByName(String pageName);
+    String getSystemTitle();
+    PageInterface getWelcomePage();
 }
