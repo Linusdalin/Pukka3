@@ -1,9 +1,7 @@
 package backoffice.services;
 
-import backoffice.BackofficeFactory;
 import backoffice.BackofficeInterface;
-import backoffice.pages.PageInterface;
-import style.Html;
+import backoffice.BackofficeFactory;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

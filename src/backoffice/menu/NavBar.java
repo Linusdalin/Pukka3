@@ -21,16 +21,23 @@ public class NavBar {
     private MessageManager messagemanager = null;
     private TaskManager taskmanager = null;
 
-
     public NavBar() {
 
     }
 
 
-    public String render(){
+    /************************************************************
+     *
+     *          Render the NavBar (the icons in the top right corner)
+     *
+     * @param backOffice       - active backoffice
+     * @param thisURL          - page URL (for logout redirect
+     * @return                 - html
+     */
+
+    public String render(BackofficeInterface backOffice, String thisURL){
 
         StringBuffer topBar = new StringBuffer();
-
 
         topBar.append(
                 "            <ul class=\"nav navbar-top-links navbar-right\">\n");
@@ -44,7 +51,10 @@ public class NavBar {
         if(notationManager != null)
             topBar.append(notationManager.render());
 
-        // Mandatory User management
+        // Create the logout URL from the ACS system
+
+        String logoutURL = backOffice.getAcs().getLogoutRedirectURL(thisURL);
+
 
         topBar.append(
                 "                <li class=\"dropdown\">\n" +
@@ -57,7 +67,7 @@ public class NavBar {
                 "                        <li><a href=\"#\"><i class=\"fa fa-gear fa-fw\"></i> Settings</a>\n" +
                 "                        </li>\n" +
                 "                        <li class=\"divider\"></li>\n" +
-                "                        <li><a href=\"login.html\"><i class=\"fa fa-sign-out fa-fw\"></i> Logout</a>\n" +
+                "                        <li><a href=\""+ logoutURL+"\"><i class=\"fa fa-sign-out fa-fw\"></i> Logout</a>\n" +
                 "                        </li>\n" +
                 "                    </ul>\n" +
                 "                    <!-- /.dropdown-user -->\n" +

@@ -1,12 +1,9 @@
 package backoffice.services;
 
-import backoffice.BackofficeFactory;
-import backoffice.BackofficeInterface;
 import backoffice.pages.PageInterface;
 import style.Html;
 import style.pageComponents.BrandTitle;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -19,7 +16,7 @@ import java.io.IOException;
  *
  */
 
-public class pageServlet extends HttpServlet {
+public class pageServlet extends PukkaServlet {
 
     /*************************************************************************''
      *
@@ -34,11 +31,16 @@ public class pageServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)throws IOException {
 
-        BackofficeInterface backoffice = BackofficeFactory.getBackoffice();
+        logRequest(req);
 
         String pageName = req.getParameter("page");
 
-        PageInterface page = backoffice.getPageByName(pageName);
+        if(!validateSession(req, resp))
+            return;
+
+
+        PageInterface page = backOffice.getPageByName(pageName);
+        String thisURL = req.getRequestURI();
 
         StringBuffer html = new StringBuffer();
 
@@ -55,7 +57,7 @@ public class pageServlet extends HttpServlet {
                 "    <meta name=\"description\" content=\"\">\n" +
                 "    <meta name=\"author\" content=\"\">\n" +
 
-                Html.title( backoffice.getSystemTitle() ) +
+                Html.title( backOffice.getSystemTitle() ) +
 
                 "    <!-- Bootstrap Core CSS -->\n" +
                 "    <link href=\"adminCommon/bower_components/bootstrap/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
@@ -97,14 +99,14 @@ public class pageServlet extends HttpServlet {
                 "                    <span class=\"icon-bar\"></span>\n" +
                 "                    <span class=\"icon-bar\"></span>\n" +
                 "                </button>\n" +
-                new BrandTitle(backoffice).render() +
+                new BrandTitle(backOffice).render() +
                 "            </div>\n" +
                 "            <!-- /.navbar-header -->\n" +
                 "\n" +
-                backoffice.getNavbar().render() +
+                backOffice.getNavbar().render(backOffice, thisURL) +
                 "\n" +
 
-                backoffice.getMenu().render() +
+                backOffice.getMenu().render() +
 
                 "\n" +
                 "            <!-- /.navbar-static-side -->\n" +
@@ -157,4 +159,5 @@ public class pageServlet extends HttpServlet {
         resp.flushBuffer();
 
     }
+
 }

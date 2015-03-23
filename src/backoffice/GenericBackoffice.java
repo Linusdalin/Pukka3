@@ -1,5 +1,7 @@
 package backoffice;
 
+import backoffice.acs.ACSInterface;
+import backoffice.acs.OpenDoorACS;
 import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
 import backoffice.pages.EmptyPage;
@@ -24,12 +26,14 @@ abstract public class GenericBackoffice {
     private String title = "Default Title";
     private List<PageInterface> pages = new ArrayList<PageInterface>();
     private PageInterface homePage;
+    private ACSInterface acs;
 
 
     public GenericBackoffice(){
 
         //Standard components for all systems
         pages.add(new EmptyPage());
+        acs = new OpenDoorACS();
 
 
     }
@@ -94,5 +98,11 @@ abstract public class GenericBackoffice {
     }
 
 
+    public ACSInterface getAcs() {
+        return acs;
+    }
 
+    public void setAcs(ACSInterface acs) {
+        this.acs = acs;
+    }
 }

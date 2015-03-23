@@ -1,17 +1,21 @@
 package backoffice;
 
+import backoffice.acs.ACSInterface;
 import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
 import backoffice.pages.PageInterface;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Linus
- * Date: 2015-03-21
- * Time: 22:11
- * To change this template use File | Settings | File Templates.
+/******************************************************************
+ *
+ *          Common functionality for a backOffice
  */
+
 public interface BackofficeInterface {
+
+    public ACSInterface getAcs();
+    public void setAcs(ACSInterface acs);
+
+
 
     Menu getMenu();
 
