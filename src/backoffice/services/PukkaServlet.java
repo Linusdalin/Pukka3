@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 
 /**
  *
@@ -32,7 +33,8 @@ public class PukkaServlet extends HttpServlet {
 
             // Fail to validate. Try redirect
 
-            String redirectURL = acsSystem.getLoginRedirectURL(request.getRequestURI() + "&page=oooppps");
+            String redirectURL = acsSystem.getLoginRedirectURL(request.getRequestURI());
+            System.out.println("Redirecting to " + redirectURL);
             response.sendRedirect(redirectURL);
             response.flushBuffer();
             return false;
@@ -45,11 +47,28 @@ public class PukkaServlet extends HttpServlet {
     }
 
 
-    protected void logRequest(HttpServletRequest req) {
+    /**************************************************************************************
+     *
+     *          Logging the actual raw request to make it easy to review and understand what happened.
+     *
+     * @param request - http request
+     *
+     */
 
-        //TODO: Not implemented logging request
 
+    protected void logRequest(HttpServletRequest request) {
+
+        Enumeration pars = request.getParameterNames();
+        StringBuffer logString = new StringBuffer();
+        while(pars != null && pars.hasMoreElements()){
+
+            String parameterName = (String)pars.nextElement();
+            logString.append( parameterName + " - "+(request.getParameter(parameterName)).toString() + " ");
+        }
+
+        System.out.println( request.getMethod() + "-request " + request.getRequestURI() + " Parameters: " + logString);
     }
+
 
 
 }

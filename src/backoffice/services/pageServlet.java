@@ -35,8 +35,8 @@ public class pageServlet extends PukkaServlet {
 
         String pageName = req.getParameter("page");
 
-        if(!validateSession(req, resp))
-            return;
+        //if(!validateSession(req, resp))
+        //    return;
 
 
         PageInterface page = backOffice.getPageByName(pageName);

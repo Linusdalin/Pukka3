@@ -5,6 +5,9 @@ import backoffice.GenericBackoffice;
 import backoffice.acs.ACSInterface;
 import backoffice.acs.GoogleACS;
 import backoffice.menu.*;
+import backoffice.pages.EmptyPage;
+import backoffice.pages.ExampleLightboxPage;
+import backoffice.pages.ExamplePage;
 import backoffice.pages.PageInterface;
 
 /**
@@ -22,11 +25,11 @@ import backoffice.pages.PageInterface;
  *        *   - create menu from section tree
  *        *   - Create an icon class (with rendering) and Assign icons to menu sections
  *        *   - access welcome page from brand title
- *           - Add login and session
+ *        *   - Add ACS and Google SSO
  *
  *
- *
- *           - Dynamic page tabs, send tabId in URL
+ *           - implement lightbox component
+ *           - Static and dynamic page tabs, send tabId in URL
  *
  *           - Add logging
  *           - Add custom exception
@@ -37,13 +40,15 @@ import backoffice.pages.PageInterface;
  *           - Add accordion
  *           - Add lists
  *
+ *           - Add ACSUser table (plus connect to Google SSO)
+ *
  *           - Add forms with components
+ *           - merge data tables with backOffice
  *           - Table edit form, (add, edit, delete)
  *
- *           - merge data tables with backoffice
  *
  *           - Add chart support
- *           - Add databox (from dashboard)
+ *           - Add and standardize data box (from dashboard)
  *
  *           - dynamic loading of table content
  *           - Complete all icons
@@ -59,20 +64,38 @@ import backoffice.pages.PageInterface;
  *           - Form validation
  *           - Pivot table
  *           - Implement search
+ *           - Implement separate login page and a real local ACS impl (incl password management)
+ *
+ *           - implement event (automatically generate a service, queuing request and a handling callback)
+ *
+ *           - reverse lookup and table filter for tables
+ *
+ *           - implement email sending
+ *           - landing page for external service (no menu)
+ *           - implement external service create account
+ *           - implement password reminder
+ *           - task scheduler
+ *
+ *
+ *           - implement Facebook SSO
 
  */
 
 public class DemoBO extends GenericBackoffice implements BackofficeInterface {
 
+    // Define all pages in the back office
+
     public static final PageInterface DemoPage = new DemoPage();
+    public static final PageInterface ExamplePage = new ExamplePage();
+    public static final PageInterface ExampleLightbox = new ExampleLightboxPage();
 
     // Create a nav-bar with the optional functionality
 
     private static final NavBar Navbar = new NavBar()
             .useMessages()
             .useNotifications()
-            .useTasks()
-    ;
+            .useTasks();
+
     // Create a menu
 
     private static final Menu menu = new Menu(
@@ -83,16 +106,25 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
 
                     new SectionContainer("Test", Icon.arrowsV, new SectionInterface[] {
 
-                            new SectionSub("Other", DemoPage),
-                            new SectionSub("Other2", DemoPage),
+                            new SectionSub("Demo", DemoPage),
+                            new SectionSub("Example2", ExamplePage),
 
                     }),
 
-            }
+            })
+            .withSearch()
+            .withNavbar(Navbar);
 
-    ).withSearch().withNavbar(Navbar);
+    // Define which access control system we shall use
 
     private static final ACSInterface acs = new GoogleACS();
+
+    /***********************************************************
+     *
+     *          Create the backOffice with the
+     *          defined configurations
+     *
+     */
 
     public DemoBO(){
 
@@ -101,6 +133,8 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
         setMenu(menu);
         setTitle("Pukka 3 Demo");
         addPage(DemoPage);
+        addPage(ExamplePage);
+        addPage(ExampleLightbox);
         setAcs(acs);
 
 

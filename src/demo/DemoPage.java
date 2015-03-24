@@ -16,8 +16,8 @@ public class DemoPage extends GenericPage implements PageInterface {
 
     public DemoPage(){
 
-        setName("DemoPage");
-        setTitle("Demo Dashboard Page");
+        setName("Demo");
+        setTitle("Dashboard Page");
 
     }
 
@@ -35,6 +35,7 @@ public class DemoPage extends GenericPage implements PageInterface {
         return
 
                 new PageHeader(getTitle()).render() +
+
                 "            <!-- /.row -->\n" +
                 "            <div class=\"row\">\n" +
                 "                <div class=\"col-lg-3 col-md-6\">\n" +
@@ -568,7 +569,6 @@ public class DemoPage extends GenericPage implements PageInterface {
                 "                <!-- /.col-lg-4 -->\n" +
                 "            </div>\n" +
                 "            <!-- /.row -->\n";
-
 
 
     }

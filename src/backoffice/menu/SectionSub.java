@@ -34,7 +34,7 @@ public class SectionSub extends GenericSection implements SectionInterface{
             System.out.println("Subsection used on level " + level);
 
         return  "                             <li>" +
-                "                               <a href=\"/page?page="+name+"\"> "+name+"</a>\n" +
+                "                               <a href=\"/page?page="+page.getName()+"\"> "+name+"</a>\n" +
                 "                             </li>\n";
 
     }

@@ -14,14 +14,18 @@ import java.io.IOException;
  *
  */
 
-public class HomeServlet extends HttpServlet {
+public class HomeServlet extends PukkaServlet {
+
+    private static BackofficeInterface backOffice = BackofficeFactory.getBackoffice();
+
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)throws IOException {
 
-        BackofficeInterface backOffice = BackofficeFactory.getBackoffice();
+
 
         System.out.println("In home servlet. Redirecting to " + backOffice.getWelcomePage().getName());
 
         resp.sendRedirect("/page?page=" + backOffice.getWelcomePage().getName());
+        resp.flushBuffer();
     }
 }
