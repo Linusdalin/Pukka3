@@ -1,11 +1,12 @@
 package demo;
 
-import backoffice.BackofficeInterface;
-import backoffice.GenericBackoffice;
+import backoffice.common.BackofficeInterface;
+import backoffice.common.GenericBackoffice;
 import backoffice.acs.ACSInterface;
 import backoffice.acs.GoogleACS;
+import backoffice.lightbox.DynamicModal;
+import backoffice.lightbox.LightBoxInterface;
 import backoffice.menu.*;
-import backoffice.pages.EmptyPage;
 import backoffice.pages.ExampleLightboxPage;
 import backoffice.pages.ExamplePage;
 import backoffice.pages.PageInterface;
@@ -27,12 +28,13 @@ import backoffice.pages.PageInterface;
  *        *   - access welcome page from brand title
  *        *   - Add ACS and Google SSO
  *
- *
- *           - implement lightbox component
+ *            - light box loading from light box Servlet
+ *           - implement light box component to render a light box link (with script
  *           - Static and dynamic page tabs, send tabId in URL
  *
  *           - Add logging
  *           - Add custom exception
+ *           - Add error boxes and replace where appropriate
  *
  *
  *           - Add tables with dynamic data loading
@@ -87,7 +89,9 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
 
     public static final PageInterface DemoPage = new DemoPage();
     public static final PageInterface ExamplePage = new ExamplePage();
-    public static final PageInterface ExampleLightbox = new ExampleLightboxPage();
+    public static final PageInterface ExampleLightBoxPage = new ExampleLightboxPage();
+
+    public static final LightBoxInterface ExampleLightBox = new DynamicModal();
 
     // Create a nav-bar with the optional functionality
 
@@ -108,6 +112,7 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
 
                             new SectionSub("Demo", DemoPage),
                             new SectionSub("Example2", ExamplePage),
+                            new SectionSub("Lightbox", ExampleLightBoxPage),
 
                     }),
 
@@ -134,7 +139,9 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
         setTitle("Pukka 3 Demo");
         addPage(DemoPage);
         addPage(ExamplePage);
-        addPage(ExampleLightbox);
+        addPage(ExampleLightBoxPage);
+        addLightBox(ExampleLightBox);
+
         setAcs(acs);
 
 

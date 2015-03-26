@@ -1,6 +1,6 @@
 package backoffice.menu;
 
-import backoffice.BackofficeInterface;
+import backoffice.common.BackofficeInterface;
 import backoffice.modules.messages.MessageManager;
 import backoffice.modules.notifications.NotificationManager;
 import backoffice.modules.tasks.TaskManager;

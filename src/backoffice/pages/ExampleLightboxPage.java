@@ -1,5 +1,8 @@
 package backoffice.pages;
 
+import backoffice.common.LinkType;
+import backoffice.lightbox.DynamicModal;
+import backoffice.lightbox.LightBoxInterface;
 import style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ExampleLightboxPage extends GenericPage implements PageInterface {
 
+    private static final LightBoxInterface example = new DynamicModal();
+
     public ExampleLightboxPage(){
 
         setName("exampleLightbox");
@@ -21,7 +26,7 @@ public class ExampleLightboxPage extends GenericPage implements PageInterface {
 
     public String render(HttpServletRequest request){
 
-        return  "Example body...";
+        return  "<p>This is the dynamic modal lightbox</p> "+ example.renderLink(LinkType.BUTTON, "click me!") + example.renderAnchor();
 
     }
 

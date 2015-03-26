@@ -1,9 +1,8 @@
 package backoffice.services;
 
-import backoffice.BackofficeInterface;
-import backoffice.BackofficeFactory;
+import backoffice.common.BackofficeInterface;
+import backoffice.common.BackofficeFactory;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

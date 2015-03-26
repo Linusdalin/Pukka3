@@ -1,6 +1,6 @@
 package style.pageComponents;
 
-import backoffice.BackofficeInterface;
+import backoffice.common.BackofficeInterface;
 
 /**
  * Created with IntelliJ IDEA.

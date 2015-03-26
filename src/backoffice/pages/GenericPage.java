@@ -36,7 +36,7 @@ public class GenericPage implements PageInterface {
 
     public String renderDataScripts(){
 
-        return  "            <!-- No scripts generated for the page "+ name +"-->>\n";
+        return  "            <script src=\"adminCommon/pukka.js\"></script>\n";
 
     }
 

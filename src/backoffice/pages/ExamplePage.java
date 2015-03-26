@@ -37,14 +37,11 @@ public class ExamplePage extends GenericPage implements PageInterface {
                 "                            <button class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" id=\"modal1\" data-target=\"#pukkaModal\" href=\"modalTest.html\">\n" +
                 "                                Launch Demo Modal\n" +
                 "                            </button>\n" +
-                "                            <!-- Modal -->\n" +
-                "                            <div class=\"modal fade\" id=\"pukkaModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\" >\n" +
 
-                "                            </div>\n" +
+                "                            <!-- Modal -->\n" +
+                "                            <div class=\"modal fade\" id=\"pukkaModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\" ></div>\n" +
                 "                            <!-- /.modal -->\n");
 
-
-        html.append("<p><a href=\"modalTest.html\" data-toggle=\"modal\" data-target=\"#pukkaModal\">Modal link</a></p>");
 
         html.append("<p><a href=\"/Lightbox?page=exampleLightbox\" data-toggle=\"modal\" data-target=\"#pukkaModal\">Lightbox Servlet Test</a></p>");
 

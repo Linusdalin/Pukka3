@@ -1,5 +1,6 @@
-package backoffice;
+package backoffice.common;
 
+import backoffice.common.BackofficeInterface;
 import demo.DemoBO;
 
 /**

@@ -1,6 +1,7 @@
-package backoffice;
+package backoffice.common;
 
 import backoffice.acs.ACSInterface;
+import backoffice.lightbox.LightBoxInterface;
 import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
 import backoffice.pages.PageInterface;
@@ -20,8 +21,11 @@ public interface BackofficeInterface {
     Menu getMenu();
 
     PageInterface getPageByName(String pageName);
+    LightBoxInterface getLightBoxByName(String name);
+
     String getSystemTitle();
     PageInterface getWelcomePage();
 
     NavBar getNavbar();
+
 }

@@ -1,7 +1,7 @@
 package backoffice.services;
 
-import backoffice.BackofficeInterface;
-import backoffice.BackofficeFactory;
+import backoffice.common.BackofficeInterface;
+import backoffice.common.BackofficeFactory;
 import backoffice.acs.ACSInterface;
 
 import javax.servlet.http.HttpServlet;
@@ -22,7 +22,7 @@ import java.util.Enumeration;
 
 public class PukkaServlet extends HttpServlet {
 
-    BackofficeInterface backOffice = BackofficeFactory.getBackoffice();
+    public BackofficeInterface backOffice = BackofficeFactory.getBackoffice();
 
 
     protected boolean validateSession(HttpServletRequest request, HttpServletResponse response) throws IOException{

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class GoogleACS implements ACSInterface {
     
     private static final String Name = "Google ACS";
-    private static final ACSUser DummyUser = new ACSUser("dummy", "linusdalin@gmail.com");
+    private static final ACSUser DummyUser = new ACSUser("dummy", "linus.dalin@itclarifies.com");
 
     // Google user service
     private static UserService userService = UserServiceFactory.getUserService();
