@@ -1,7 +1,5 @@
 package backoffice.lightbox;
 
-import backoffice.common.LinkType;
-
 import javax.servlet.http.HttpServletRequest;
 
 /*************************************************************************
@@ -15,17 +13,18 @@ public class DynamicModal extends GenericLightBox implements LightBoxInterface {
 
 
     private static final String name = "DynamicModal";            // Used to recall the content in the servlet
+    private static final String title = "Example Modal";
 
     public DynamicModal(){
 
-        super(name);
+        super(name, title);
     }
 
 
 
     public String renderContent(HttpServletRequest request){
 
-        return "<p>content not implemented</p>";
+        return "<p>This is the content</p>";
 
     }
 

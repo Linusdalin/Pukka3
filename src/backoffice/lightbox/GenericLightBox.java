@@ -4,22 +4,34 @@ import backoffice.common.LinkType;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Linus
- * Date: 2015-03-26
- * Time: 22:11
- * To change this template use File | Settings | File Templates.
+
+/**************************************************************************
+ *
+ *          abstract class with generic light box functionality
+ *
+ *          All lightboxes should extend this class
+ *
+ *          //TODO: All lightboxes share the same anchor div. Does this really work with multiple lightboxes on the same page?
  */
-public class GenericLightBox {
 
-    protected final static String PARAMETER_NAME = "lightBox";
-    private final String name;
+abstract public class GenericLightBox {
 
-    protected GenericLightBox(String name){
+    protected final static String PARAMETER_NAME = "lightBox";        // parameter calling
+    private final String name;                                        // The name for lookup
+    private final String title;                                       // The title to display
+
+    protected GenericLightBox(String name, String title){
 
         this.name = name;
+        this.title = title;
     }
+
+    /**************************************************************************
+     *
+     *          Render the hidden anchor functionality for the
+     *
+     * @return
+     */
 
     public String renderAnchor(){
 
@@ -40,8 +52,8 @@ public class GenericLightBox {
      *          Both use the anchor text
      *
      *
-     * @param type
-     * @param anchorText
+     * @param type              - type of link
+     * @param anchorText        - text to display
      * @return
      */
 
@@ -64,9 +76,21 @@ public class GenericLightBox {
     }
 
 
+    /*********************************************************
+     *
+     *      get the name
+     *
+     * @return
+     */
+
 
     public String getName() {
         return name;
+    }
+
+
+    public String getTitle(HttpServletRequest request) {
+        return title;
     }
 
 
