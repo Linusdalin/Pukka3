@@ -1,5 +1,7 @@
 package backoffice.pages;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  *
  *          Common page functionality
@@ -11,7 +13,7 @@ public class GenericPage implements PageInterface {
     private String name = null;
     private String title = "No title";
 
-    public String render(){
+    public String render(HttpServletRequest request){
 
         return "No content defined for page";
     }

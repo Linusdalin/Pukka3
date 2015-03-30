@@ -1,9 +1,10 @@
-package backoffice.pages;
+package demo;
 
 import backoffice.common.LinkType;
 import backoffice.lightbox.DynamicModal;
-import backoffice.lightbox.LightBoxInterface;
-import style.pageComponents.PageHeader;
+import backoffice.lightbox.LightboxInterface;
+import backoffice.pages.GenericPage;
+import backoffice.pages.PageInterface;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ExampleLightboxPage extends GenericPage implements PageInterface {
 
-    private static final LightBoxInterface example = new DynamicModal();
+    private static final LightboxInterface example = new DynamicModal();
 
     public ExampleLightboxPage(){
 

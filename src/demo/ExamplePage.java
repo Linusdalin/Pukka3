@@ -1,5 +1,7 @@
-package backoffice.pages;
+package demo;
 
+import backoffice.pages.GenericPage;
+import backoffice.pages.PageInterface;
 import style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;

@@ -2,7 +2,7 @@ package backoffice.common;
 
 import backoffice.acs.ACSInterface;
 import backoffice.acs.OpenDoorACS;
-import backoffice.lightbox.LightBoxInterface;
+import backoffice.lightbox.LightboxInterface;
 import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
 import backoffice.pages.EmptyPage;
@@ -26,7 +26,7 @@ abstract public class GenericBackoffice {
     private Menu menu;
     private String title = "Default Title";
     private List<PageInterface> pages = new ArrayList<PageInterface>();
-    private List<LightBoxInterface> lightboxs = new ArrayList<LightBoxInterface>();
+    private List<LightboxInterface> lightboxs = new ArrayList<LightboxInterface>();
     private PageInterface homePage;
     private ACSInterface acs;
 
@@ -68,12 +68,12 @@ abstract public class GenericBackoffice {
 
     }
 
-    public LightBoxInterface getLightBoxByName(String name) {
+    public LightboxInterface getLightBoxByName(String name) {
 
         if(name == null)
             return null;
 
-        for (LightBoxInterface lightBox : lightboxs) {
+        for (LightboxInterface lightBox : lightboxs) {
              if(lightBox.getName().equals(name))
                  return lightBox;
         }
@@ -90,7 +90,7 @@ abstract public class GenericBackoffice {
 
     }
 
-    protected void addLightBox(LightBoxInterface lightBox) {
+    protected void addLightBox(LightboxInterface lightBox) {
 
         lightboxs.add(lightBox);
 
