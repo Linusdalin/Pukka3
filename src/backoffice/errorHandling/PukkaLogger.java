@@ -31,19 +31,34 @@ public class PukkaLogger {
     }
 
 
+    /*********************************************************************
+     *
+     *          main logging method
+     *
+     *          The info parameter is used when there is an exception to log with
+     *
+     *              - message which is a manual message
+     *              - and a stacktrace
+     *
+     *
+     * @param level
+     * @param message
+     */
+
+
     public static void log(LogLevel level, String message){
 
         log(level, message, null);
 
     }
 
-    private static void log(LogLevel level, String message, String info){
+    private static void log(LogLevel level, String message, String stackInfo){
 
         if(level.getOrdinal() >= filterLevel.getOrdinal()){
 
             System.out.println(level + ": " + message);
-            if(info != null)
-                System.out.println(info);
+            if(stackInfo != null)
+                System.out.println(stackInfo);
 
         }
 
@@ -58,17 +73,25 @@ public class PukkaLogger {
 
     }
 
+    /*********************************************************************
+     *
+     *          Logging or swallowing an exception
+     *
+     *
+     * @param e        - the exception
+     */
+
 
     public static void log(BackOfficeException e){
 
-        String info = getMessage( e );
+        String info = getStackInfo(e);
 
         log(LogLevel.FATAL, e.message, info);
     }
 
     public static void swallow(BackOfficeException e){
 
-        String info = getMessage( e );
+        String info = getStackInfo(e);
 
         log(LogLevel.INFO, e.message, info);
     }
@@ -81,14 +104,22 @@ public class PukkaLogger {
 
     public static void log(Exception e, String additionalInfo){
 
-        String info = getMessage( e );
+        String info = getStackInfo(e);
 
-        log(LogLevel.FATAL, "Exception Stacktrace:", info + "(" + additionalInfo + ")");
+        log(LogLevel.FATAL, additionalInfo, info);
 
 
     }
 
-    public static String getMessage(Exception e){
+    /**********************************************************
+     *
+     *          Extracting the stacktrace to the log
+     *
+     * @param e       - the exception
+     * @return        - stack trace as a string
+     */
+
+    public static String getStackInfo(Exception e){
 
         Writer writer = new StringWriter();
         PrintWriter printWriter = new PrintWriter(writer);
