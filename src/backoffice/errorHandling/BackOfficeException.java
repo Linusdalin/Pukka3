@@ -10,7 +10,7 @@ package backoffice.errorHandling;
 public class BackOfficeException extends Exception {
 
     private final Type type;
-    private final String message;
+    public final String message;
 
     public enum Type {
         GENERIC,                // Generic error
