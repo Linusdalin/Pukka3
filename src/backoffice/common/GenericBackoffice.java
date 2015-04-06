@@ -2,6 +2,7 @@ package backoffice.common;
 
 import backoffice.acs.ACSInterface;
 import backoffice.acs.OpenDoorACS;
+import backoffice.form.FormInterface;
 import backoffice.lightbox.LightboxInterface;
 import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
@@ -27,6 +28,8 @@ abstract public class GenericBackoffice {
     private String title = "Default Title";
     private List<PageInterface> pages = new ArrayList<PageInterface>();
     private List<LightboxInterface> lightboxs = new ArrayList<LightboxInterface>();
+    private List<FormInterface> forms = new ArrayList<FormInterface>();
+
     private PageInterface homePage;
     private ACSInterface acs;
 
@@ -68,6 +71,22 @@ abstract public class GenericBackoffice {
 
     }
 
+    public FormInterface getFormByName(String formName) {
+
+        if(formName == null)
+            return null;
+
+        for (FormInterface form : forms) {
+             if(form.getName().equals(formName))
+                 return form;
+        }
+
+        return null;
+
+
+    }
+
+
     public LightboxInterface getLightBoxByName(String name) {
 
         if(name == null)
@@ -95,6 +114,13 @@ abstract public class GenericBackoffice {
         lightboxs.add(lightBox);
 
     }
+
+    protected void addForm(FormInterface form) {
+
+        forms.add(form);
+
+    }
+
 
 
     public void setTitle(String title){

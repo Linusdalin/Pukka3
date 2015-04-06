@@ -14,6 +14,7 @@ public class Tab {
     private String name;
     private String title;
     private PageInterface page;
+    private boolean isDefaultTab;
 
     public Tab(String name, String title, PageInterface page){
 
@@ -21,6 +22,13 @@ public class Tab {
         this.title = title;
         this.page = page;
     }
+
+    public Tab setDefault(){
+
+        this.isDefaultTab = true;
+        return this;
+    }
+
 
     public String renderTabTitle(boolean isActive) {
         return "                                <li "+(isActive ? "class=\"active\"": "" ) + "><a href=\"#"+name+"\" data-toggle=\"tab\">"+title+"</a>\n";
@@ -37,4 +45,19 @@ public class Tab {
 
     }
 
+    /**************************************************
+     *
+     *          Is this the active tab?
+     *
+     * @param activeTab     - name from request
+     * @return
+     */
+
+    public boolean isActive(String activeTab) {
+
+        if(activeTab == null)
+            return this.isDefaultTab;
+
+        return name.equals(activeTab);
+    }
 }

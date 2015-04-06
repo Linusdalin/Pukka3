@@ -1,5 +1,7 @@
 package demo;
 
+import backoffice.common.Location;
+import backoffice.form.FormInterface;
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
 import style.pageComponents.PageHeader;
@@ -35,18 +37,9 @@ public class ExamplePage extends GenericPage implements PageInterface {
 
         html.append(new PageHeader("Example Page").render());
 
-        html.append(
-                "                            <button class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" id=\"modal1\" data-target=\"#pukkaModal\" href=\"modalTest.html\">\n" +
-                "                                Launch Demo Modal\n" +
-                "                            </button>\n" +
-
-                "                            <!-- Modal -->\n" +
-                "                            <div class=\"modal fade\" id=\"pukkaModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\" ></div>\n" +
-                "                            <!-- /.modal -->\n");
-
-
-        html.append("<p><a href=\"/Lightbox?page=exampleLightbox\" data-toggle=\"modal\" data-target=\"#pukkaModal\">Lightbox Servlet Test</a></p>");
-
+        FormInterface exampleForm = new ExampleForm(location);
+        exampleForm.populateValues(request);
+        html.append(exampleForm.renderForm());
 
         return html.toString();
 

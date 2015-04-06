@@ -33,9 +33,12 @@ public class ExampleTabPage extends GenericPage implements PageInterface {
     public String render(HttpServletRequest request){
 
         StringBuffer html = new StringBuffer();
+
+        String activeTab = request.getParameter("tab");
+
         html.append(new PageHeader("Example tabs").render());
 
-        html.append(new ExampleTabPanel().render(0, request));
+        html.append(new ExampleTabPanel().render(activeTab, request));
 
         return html.toString();
     }

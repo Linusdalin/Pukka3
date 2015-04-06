@@ -4,6 +4,8 @@ import backoffice.common.BackofficeInterface;
 import backoffice.common.GenericBackoffice;
 import backoffice.acs.ACSInterface;
 import backoffice.acs.GoogleACS;
+import backoffice.common.Location;
+import backoffice.form.FormInterface;
 import backoffice.lightbox.DynamicModal;
 import backoffice.lightbox.LightboxInterface;
 import backoffice.menu.*;
@@ -28,21 +30,30 @@ import backoffice.pages.PageInterface;
  *
  *        *   - light box loading from light box Servlet
  *        *   - implement light box component to render a light box link (with script
- *           - Static page tabs, send tabId in URL, tab name in title
+ *        *   - Static page tabs, send tabId in URL, tab name in title
+ *        *   - Add error boxes
+ *
+ *
+ *           - Implement form framework
+ *                      * - Add forms with basic components
+ *                      * - form submit
+ *                      * - prefill form
+ *                      - checkbox, radiobutton and dropdown
+ *                      - date-picker
+ *           - Wells and panels
+ *
  *
  *           - Add logging
  *           - Add custom exception
- *           - Add error boxes and replace where appropriate
+ *           - Add accordion
  *
  *
  *           - Add tables with dynamic data loading
  *           - Add filter for tables
- *           - Add accordion
  *           - Add lists
  *
  *           - Add ACSUser table (plus connect to Google SSO)
  *
- *           - Add forms with components
  *           - merge data tables with backOffice
  *           - Table edit form, (add, edit, delete)
  *
@@ -50,8 +61,8 @@ import backoffice.pages.PageInterface;
  *           - Add chart support
  *           - Add and standardize data box (from dashboard)
  *
- *           - dynamic loading of table content
  *           - Complete all icons
+ *           - dynamic loading of table content
  *
  *           - implement message component
  *           - implement alert component
@@ -69,6 +80,7 @@ import backoffice.pages.PageInterface;
  *           - implement event (automatically generate a service, queuing request and a handling callback)
  *
  *           - reverse lookup and table filter for tables
+ *           - Form validation
  *
  *           - Creating dynamic page tabs
  *           - implement email sending
@@ -90,6 +102,8 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
     public static final PageInterface ExamplePage = new ExamplePage();
     public static final PageInterface ExampleLightBoxPage = new ExampleLightboxPage();
     public static final PageInterface ExampleTabPage = new demo.ExampleTabPage();
+
+    public static final FormInterface ExampleForm = new ExampleForm(new Location(ExampleLightBoxPage.getName()));
 
     public static final LightboxInterface ExampleLightBox = new DynamicModal();
 
@@ -146,6 +160,9 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
 
 
         addLightBox(ExampleLightBox);
+
+        addForm(ExampleForm);
+
 
         setAcs(acs);
 

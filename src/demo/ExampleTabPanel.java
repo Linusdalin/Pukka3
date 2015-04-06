@@ -16,7 +16,7 @@ public class ExampleTabPanel extends TabPanel {
 
     public ExampleTabPanel(){
 
-        addTab(new Tab("First", "First", new EmptyPage()));         // Create a tab with an empty page
-        addTab(new Tab("Second", "Second", new EmptyPage()));         // Create a tab with an empty page
+        addTab(new Tab("First", "First", new EmptyPage()).setDefault());    // Create a tab with an empty page
+        addTab(new Tab("Second", "Second", new EmptyPage()));               // Create a tab with an empty page
     }
 }

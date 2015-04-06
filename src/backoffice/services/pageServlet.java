@@ -1,5 +1,7 @@
 package backoffice.services;
 
+import backoffice.form.CallbackMessage;
+import backoffice.form.FormInterface;
 import backoffice.pages.PageInterface;
 import style.Html;
 import style.pageComponents.BrandTitle;
@@ -13,6 +15,12 @@ import java.io.IOException;
  *              Servlet to serve a generic page in the backOffice.
  *
  *              This is used for all pages with the navigation menu
+ *
+ *
+ *              There are two methods supported:
+ *
+ *               - Get, will just get the pagte
+ *               - Post will execute a callback (depending on the form or list parameter) and then return the page (with a message)
  *
  */
 
@@ -33,18 +41,85 @@ public class pageServlet extends PukkaServlet {
 
         logRequest(req);
 
+        if(!validateSession(req, resp))
+            return;
+
+
         String pageName = req.getParameter("page");
+        PageInterface page = backOffice.getPageByName(pageName);
+
+        String html = getPage(page, req, null);
+
+
+
+
+        resp.getWriter().print(html.toString());
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        resp.setHeader("Access-Control-Max-Age", "" + (24 * 60 * 60));
+        resp.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
+
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html");
+        resp.flushBuffer();
+
+    }
+
+
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)throws IOException {
+
+        logRequest(req);
 
         if(!validateSession(req, resp))
             return;
 
 
+        String pageName = req.getParameter("page");
         PageInterface page = backOffice.getPageByName(pageName);
-        String thisURL = req.getRequestURI();
 
+        String action = req.getParameter("action");
+
+        CallbackMessage message = null;
+
+        if(action != null){
+
+            if(action.equals("submit")){
+
+                // Handle actions on page here
+                System.out.println("Action Not implemented!");
+                String formName = req.getParameter("form");
+                FormInterface form = backOffice.getFormByName(formName);
+
+                message = form.submitCallBack(req);
+
+            }
+
+        }
+
+        String html = getPage(page, req, message);
+
+        resp.getWriter().print(html);
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        resp.setHeader("Access-Control-Max-Age", "" + (24 * 60 * 60));
+        resp.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        resp.setHeader("Access-Control-Allow-Headers", "content-type");
+
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html");
+        resp.flushBuffer();
+
+    }
+
+
+    private String getPage(PageInterface page, HttpServletRequest req, CallbackMessage message) {
+
+        String thisURL = req.getRequestURI();
         StringBuffer html = new StringBuffer();
 
-
+        if(message != null)
+            System.out.println("Callback Message: " + message.toString());
 
         html.append("<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
@@ -113,7 +188,7 @@ public class pageServlet extends PukkaServlet {
                 "        </nav>\n"+
                 "        <div id=\"page-wrapper\">\n" +
 
-
+                getMessageBox(message) +
                 page.render(req) +
 
 
@@ -146,18 +221,25 @@ public class pageServlet extends PukkaServlet {
                 "\n" +
                 "</html>\n");
 
+        return html.toString();
+    }
 
-        resp.getWriter().print(html.toString());
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        resp.setHeader("Access-Control-Max-Age", "" + (24 * 60 * 60));
-        resp.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-        resp.setHeader("Access-Control-Allow-Headers", "content-type");
+    /********************************************************************************
+     *
+     *          If there is a message we should render it
+     *
+     * @param message
+     * @return
+     */
 
-        resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html");
-        resp.flushBuffer();
+    private String getMessageBox(CallbackMessage message) {
+
+        if(message == null)
+            return "";
+
+        return message.toAlertBox().render();
 
     }
+
 
 }

@@ -1,5 +1,7 @@
 package backoffice.pages;
 
+import backoffice.common.Location;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -12,6 +14,7 @@ public class GenericPage implements PageInterface {
 
     private String name = null;
     private String title = "No title";
+    protected Location location;
 
     public String render(HttpServletRequest request){
 
@@ -20,6 +23,7 @@ public class GenericPage implements PageInterface {
 
     protected void setName(String name) {
         this.name = name;
+        this.location = new Location(name);
     }
 
     protected void setTitle(String title) {

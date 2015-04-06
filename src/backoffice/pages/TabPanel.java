@@ -44,7 +44,7 @@ public class TabPanel implements TabPanelInterface {
 
 
 
-    public String render(int activeTab, HttpServletRequest request){
+    public String render(String activeTab, HttpServletRequest request){
 
         StringBuffer html = new StringBuffer();
         System.out.println("Active tab = " + activeTab);
@@ -69,7 +69,7 @@ public class TabPanel implements TabPanelInterface {
         int tabNo = 0;
         for (Tab tab : tabList) {
 
-            html.append(tab.renderTabTitle(tabNo == activeTab));
+            html.append(tab.renderTabTitle(tab.isActive(activeTab)));
             tabNo++;
         }
 
@@ -81,7 +81,7 @@ public class TabPanel implements TabPanelInterface {
         tabNo = 0;
         for (Tab tab : tabList) {
 
-            html.append(tab.renderTab(tabNo == activeTab, request));
+            html.append(tab.renderTab(tab.isActive(activeTab), request));
             tabNo++;
         }
 
