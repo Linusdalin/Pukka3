@@ -42,7 +42,7 @@ public class SectionPage extends GenericSection implements SectionInterface{
         if(level > 1)
             System.out.println("Section page only supported on level 1. " + name + " configured on level " + level);
 
-        return "                        <li><a href=\"/page?page="+name+"\"><i class=\"fa fa-"+ icon.getClassName()+" fa-fw\"></i> "+name+"</a></li>\n";
+        return "                        <li><a href=\"/page?page="+name+"\">"+ icon.render() + name+"</a></li>\n";
 
     }
 

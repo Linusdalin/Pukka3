@@ -1,8 +1,8 @@
 package demo;
 
-import backoffice.pages.EmptyPage;
-import backoffice.pages.Tab;
-import backoffice.pages.TabPanel;
+import backoffice.pages.predefined.Empty404Page;
+import backoffice.pages.tab.Tab;
+import backoffice.pages.tab.TabPanel;
 
 /******************************************************************************
  *
@@ -16,7 +16,7 @@ public class ExampleTabPanel extends TabPanel {
 
     public ExampleTabPanel(){
 
-        addTab(new Tab("First", "First", new EmptyPage()).setDefault());    // Create a tab with an empty page
-        addTab(new Tab("Second", "Second", new EmptyPage()));               // Create a tab with an empty page
+        addTab(new Tab("First", "First", new Empty404Page()).setDefault());    // Create a tab with an empty page
+        addTab(new Tab("Second", "Second", new Empty404Page()));               // Create a tab with an empty page
     }
 }

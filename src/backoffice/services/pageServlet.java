@@ -1,5 +1,7 @@
 package backoffice.services;
 
+import backoffice.errorHandling.BackOfficeException;
+import backoffice.errorHandling.PukkaLogger;
 import backoffice.form.CallbackMessage;
 import backoffice.form.FormInterface;
 import backoffice.pages.PageInterface;
@@ -186,13 +188,21 @@ public class pageServlet extends PukkaServlet {
                 "\n" +
                 "            <!-- /.navbar-static-side -->\n" +
                 "        </nav>\n"+
-                "        <div id=\"page-wrapper\">\n" +
+                "        <div id=\"page-wrapper\">\n");
 
+        try{
+            html.append(
                 getMessageBox(message) +
-                page.render(req) +
+                page.render(req));
+
+        }catch(BackOfficeException e){
+
+            PukkaLogger.log( e );
+            html.append("Error rendering page");
+        }
 
 
-
+         html.append(
                 "\n" +
                 "        </div>\n" +
                 "        <!-- /#page-wrapper -->\n" +

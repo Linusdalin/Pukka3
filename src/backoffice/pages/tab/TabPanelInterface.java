@@ -1,4 +1,4 @@
-package backoffice.pages;
+package backoffice.pages.tab;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,12 +1,16 @@
 package backoffice.pages;
 
 import backoffice.common.Location;
+import backoffice.errorHandling.BackOfficeException;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  *          Common page functionality
+ *
+ *          This can be inherited for a generic page that can be filled with anything and then rendered with a custom render function.
+ *
  */
 
 abstract
@@ -16,9 +20,18 @@ public class GenericPage implements PageInterface {
     private String title = "No title";
     protected Location location;
 
-    public String render(HttpServletRequest request){
+    /*********************************************************************
+     *
+     *          The abstract render function is not supposed to be called
+     *
+     * @param request
+     * @return
+     */
 
-        return "No content defined for page";
+    public String render(HttpServletRequest request) throws BackOfficeException{
+
+        throw new BackOfficeException(BackOfficeException.Type.CONFIGURATION, "No renderer defined for page " + name);
+
     }
 
     protected void setName(String name) {

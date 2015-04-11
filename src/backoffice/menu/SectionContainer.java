@@ -47,7 +47,7 @@ public class SectionContainer extends GenericSection implements SectionInterface
         StringBuffer section = new StringBuffer();
 
         section.append( "                        <li>\n" +
-                        "                            <a href=\"#\"><i class=\"fa fa-"+ icon.getClassName()+" fa-fw\"></i> "+name+"<span class=\"fa arrow\"></span></a>\n");
+                        "                            <a href=\"#\">"+icon.render() + name+"<span class=\"fa arrow\"></span></a>\n");
 
         if(level < MAX_DEPTH){
 

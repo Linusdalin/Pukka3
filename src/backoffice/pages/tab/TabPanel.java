@@ -1,4 +1,4 @@
-package backoffice.pages;
+package backoffice.pages.tab;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;

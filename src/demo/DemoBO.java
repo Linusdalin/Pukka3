@@ -32,6 +32,8 @@ import backoffice.pages.PageInterface;
  *        *   - implement light box component to render a light box link (with script
  *        *   - Static page tabs, send tabId in URL, tab name in title
  *        *   - Add error boxes
+ *        *   - Add logging
+ *        *   - Add custom exception
  *
  *
  *           - Implement form framework
@@ -40,42 +42,50 @@ import backoffice.pages.PageInterface;
  *                      * - prefill form
  *                      - checkbox, radiobutton and dropdown
  *                      - date-picker
- *           - Wells and panels
  *
- *
- *           - Add logging
- *           - Add custom exception
+ *           - Wells and panels (as standard components in the backoffice)
  *           - Add accordion
  *
  *
  *           - Add tables with dynamic data loading
- *           - Add filter for tables
- *           - Add lists
  *
- *           - Add ACSUser table (plus connect to Google SSO)
  *
  *           - merge data tables with backOffice
  *           - Table edit form, (add, edit, delete)
+ *           - Add filter for tables (one filter value and pass this as parameter)
+ *           - Add lists with actions
+ *           - Add group by list
  *
- *
- *           - Add chart support
- *           - Add and standardize data box (from dashboard)
  *
  *           - Complete all icons
  *           - dynamic loading of table content
  *
- *           - implement message component
- *           - implement alert component
- *           - implement task component
  *
- *           - Access rights to individual pages
- *           - Register account
+ *           - Access rights to backoffice pages
+ *
+ *           =====  Replace itClarifies Backoffice ===
+ *
+ *           - Add ACSUser table (plus connect to Google SSO)
+ *
+ *           - Add chart support
+ *           - Add and standardize data box (from dashboard)
+ *
+ *           - User account
+ *              - portal user  w admin/full or read access
+ *              - signup page w signup form
+ *              - invite user
+ *              - access rights for pages
+ *
  *           - Generic Brand support
  *           - Display Brand
  *           - Form validation
- *           - Pivot table
  *           - Implement search
  *           - Implement separate login page and a real local ACS impl (incl password management)
+
+ *           - implement message component
+ *           - implement alert component
+ *           - implement task component
+
  *
  *           - implement event (automatically generate a service, queuing request and a handling callback)
  *
@@ -89,6 +99,7 @@ import backoffice.pages.PageInterface;
  *           - implement password reminder
  *           - task scheduler
  *
+ *           - Pivot table
  *
  *           - implement Facebook SSO
 
@@ -99,7 +110,7 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
     // Define all pages in the back office
 
     public static final PageInterface DemoPage = new DemoPage();
-    public static final PageInterface ExamplePage = new ExamplePage();
+    public static final PageInterface ExamplePage = new ExampleGridPage();
     public static final PageInterface ExampleLightBoxPage = new ExampleLightboxPage();
     public static final PageInterface ExampleTabPage = new demo.ExampleTabPage();
 

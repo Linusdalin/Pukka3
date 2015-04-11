@@ -6,7 +6,7 @@ import backoffice.form.FormInterface;
 import backoffice.lightbox.LightboxInterface;
 import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
-import backoffice.pages.EmptyPage;
+import backoffice.pages.predefined.Empty404Page;
 import backoffice.pages.PageInterface;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ abstract public class GenericBackoffice {
     public GenericBackoffice(){
 
         //Standard components for all systems
-        pages.add(new EmptyPage());
+        pages.add(new Empty404Page());
         acs = new OpenDoorACS();
 
 

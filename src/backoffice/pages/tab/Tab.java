@@ -1,4 +1,8 @@
-package backoffice.pages;
+package backoffice.pages.tab;
+
+import backoffice.errorHandling.BackOfficeException;
+import backoffice.errorHandling.PukkaLogger;
+import backoffice.pages.PageInterface;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,11 +41,16 @@ public class Tab {
 
     public String renderTab(boolean isActive, HttpServletRequest request){
 
-        return          "                                <div class=\"tab-pane "+(isActive ? "in active " : "" ) + "fade\" id=\""+name+"\">\n" +
+        try {
+            return          "                                <div class=\"tab-pane "+(isActive ? "in active " : "" ) + "fade\" id=\""+name+"\">\n" +
 
-                            page.render(request) +
-                            page.renderDataScripts() +
-                        "                                </div>\n";
+                                page.render(request) +
+                                page.renderDataScripts() +
+                            "                                </div>\n";
+        } catch (BackOfficeException e) {
+            PukkaLogger.log( e );
+            return "Could not render tab";
+        }
 
     }
 

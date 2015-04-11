@@ -1,5 +1,7 @@
-package backoffice.pages;
+package backoffice.pages.predefined;
 
+import backoffice.pages.GenericPage;
+import backoffice.pages.PageInterface;
 import style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
  *          404 page
  */
 
-public class EmptyPage extends GenericPage implements PageInterface {
+public class Empty404Page extends GenericPage implements PageInterface {
 
-    public EmptyPage(){
+    public Empty404Page(){
 
         setName("404");
         setTitle("Missing");
