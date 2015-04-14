@@ -11,7 +11,7 @@ import backoffice.menu.Icon;
  *
  *          //TODO: Add support for actions in panels (see demo page)
  */
-public class Panel {
+public class Panel implements PanelInterface{
 
     private String panelTop = null;
     private String panelBottom = null;
@@ -50,10 +50,18 @@ public class Panel {
         return this;
     }
 
-    public void setContent(String html){
+    public Panel withContent(String html){
 
         this.mainContent = html;
+        return this;
     }
+
+    public Panel withContent(Accordion accordion) {
+
+        this.mainContent = accordion.render();
+        return this;
+    }
+
 
     public String render(){
 
@@ -82,9 +90,50 @@ public class Panel {
         return html.toString();
     }
 
-    public void setStyle(PanelType type) {
+    /********************************************************************************'
+     *
+     *          A panel can appear in an accordion, but is then rendered a bit differently.
+     *          (With a link to open/collapse)
+     *
+     *          Also note that a panel in an accordion does not have a bottom
+     *
+     * @return
+     */
 
-        this.type = type;
+    public String renderInAccordion(int sectionNo, boolean open){
+
+        StringBuffer html = new StringBuffer();
+        html.append("   <div class=\"panel panel-"+type.getClassName()+"\">\n");
+
+        html.append("       <div class=\"panel-heading\">\n");
+        html.append("           <h4 class=\"panel-title\">\n");
+        if(topIcon != null)
+            html.append(topIcon.render());
+        html.append("              <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#section"+sectionNo+"\">" +panelTop + "</a>\n");
+        html.append("           </h4>\n");
+
+        html.append("       </div>   <!-- Panel heading  -->\n");
+
+        html.append("       <div id=\"section"+sectionNo+"\" class=\"panel-collapse collapse "+(open ? "in" : "")+"\">\n");
+
+        html.append("           <div class=\"panel-body\">\n");
+        html.append(mainContent+ "\n");
+        html.append("           </div>   <!-- Panel body  -->\n");
+        html.append("       </div>   <!-- Panel collapse  -->\n");
+
+
+        html.append("   </div>   <!-- Panel  -->\n");
+        return html.toString();
 
     }
+
+
+
+    public Panel withStyle(PanelType type) {
+
+        this.type = type;
+        return this;
+
+    }
+
 }

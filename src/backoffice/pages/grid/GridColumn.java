@@ -17,7 +17,7 @@ import java.util.List;
 public class GridColumn {
 
     private final int width;
-    private List<Panel> panels = new ArrayList<Panel>();
+    private List<PanelInterface> panels = new ArrayList<PanelInterface>();
 
     public GridColumn(int width) throws BackOfficeException{
 
@@ -32,18 +32,25 @@ public class GridColumn {
         return width;
     }
 
-    public GridColumn addPanel(Panel panel){
+    public GridColumn addPanel(PanelInterface panel){
 
         panels.add(panel);
         return this;
     }
+
+    /****************************************************
+     *
+     *          Render teh column by rendering all components
+     *
+     * @return      - html
+     */
 
     public String render(){
 
         StringBuffer html = new StringBuffer();
         html.append("                <div class=\"col-lg-"+width+"\">\n");
 
-        for (Panel panel : panels) {
+        for (PanelInterface panel : panels) {
 
             html.append(panel.render());
         }

@@ -34,6 +34,10 @@ import backoffice.pages.PageInterface;
  *        *   - Add error boxes
  *        *   - Add logging
  *        *   - Add custom exception
+ *        *   - Wells and panels (as standard components in the backoffice)
+ *
+ *           - Add accordion
+ *           - Add tables with dynamic data loading
  *
  *
  *           - Implement form framework
@@ -42,12 +46,6 @@ import backoffice.pages.PageInterface;
  *                      * - prefill form
  *                      - checkbox, radiobutton and dropdown
  *                      - date-picker
- *
- *           - Wells and panels (as standard components in the backoffice)
- *           - Add accordion
- *
- *
- *           - Add tables with dynamic data loading
  *
  *
  *           - merge data tables with backOffice
@@ -81,7 +79,8 @@ import backoffice.pages.PageInterface;
  *           - Form validation
  *           - Implement search
  *           - Implement separate login page and a real local ACS impl (incl password management)
-
+ *
+ *           - Add option for dynamically loaded panels and connect action to the panel
  *           - implement message component
  *           - implement alert component
  *           - implement task component
@@ -91,6 +90,7 @@ import backoffice.pages.PageInterface;
  *
  *           - reverse lookup and table filter for tables
  *           - Form validation
+ *           - Expand-all for accordion
  *
  *           - Creating dynamic page tabs
  *           - implement email sending

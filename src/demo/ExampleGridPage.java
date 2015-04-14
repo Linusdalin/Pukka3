@@ -4,12 +4,9 @@ import backoffice.errorHandling.BackOfficeException;
 import backoffice.errorHandling.PukkaLogger;
 import backoffice.form.FormInterface;
 import backoffice.menu.Icon;
-import backoffice.pages.grid.GridColumn;
-import backoffice.pages.grid.GridRow;
-import backoffice.pages.grid.Panel;
+import backoffice.pages.grid.*;
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
-import backoffice.pages.grid.PanelType;
 import backoffice.pages.template.GridPage;
 import style.Html;
 import style.pageComponents.PageHeader;
@@ -35,6 +32,21 @@ public class ExampleGridPage extends GridPage implements PageInterface {
     Panel otherPanel = new Panel()
             .withTop(Icon.filter, "Output").withBottom("...");
 
+    Panel dummyPanel = new Panel()
+            .withTop(Icon.book, "Lorem Ipsum")
+            .withContent("Dolor sit amet")
+            .withStyle(PanelType.INFO);
+
+
+    Accordion accordion = new Accordion()
+            .addSection(dummyPanel)
+            .addSection(dummyPanel);
+
+    Panel accordionPanel = new Panel()
+            .withTop(Icon.bars, "Accordion")
+            .withContent(accordion)
+            .withBottom("...");
+
 
     public ExampleGridPage(){
 
@@ -50,6 +62,7 @@ public class ExampleGridPage extends GridPage implements PageInterface {
                     .addColumn(new GridColumn(4)
 
                             .addPanel(otherPanel)
+                            .addPanel(accordionPanel)
                     );
 
             setPageHeader(new PageHeader("Example Page with 2/3 grid split"));
@@ -69,8 +82,8 @@ public class ExampleGridPage extends GridPage implements PageInterface {
      *
      *              Adding dynamic content to the page (from http request data)
      *
-     * @param request
-     * @return
+     * @param request        - the request parameters
+     * @return               - html
      */
 
     @Override
@@ -80,24 +93,24 @@ public class ExampleGridPage extends GridPage implements PageInterface {
 
             FormInterface exampleForm = new ExampleForm(location);
             exampleForm.populateValues(request);
-            formPanel.setContent(exampleForm.renderForm());
+            formPanel.withContent(exampleForm.renderForm());
 
             // Example of how to modify the page content:
 
             if(request.getParameter("text1") == null){
 
-                otherPanel.setContent(Html.paragraph("Output area"));
-                otherPanel.setStyle(PanelType.DEFAULT);
+                otherPanel.withContent(Html.paragraph("Output area"));
+                otherPanel.withStyle(PanelType.DEFAULT);
             }
             else if(request.getParameter("text1").equals("")){
 
-                otherPanel.setContent(Html.paragraph("No parameter value"));
-                otherPanel.setStyle(PanelType.ERROR);
+                otherPanel.withContent(Html.paragraph("No parameter value"));
+                otherPanel.withStyle(PanelType.ERROR);
             }
             else{
 
-                    otherPanel.setContent(Html.paragraph("The parameter value is: \"" + request.getParameter("text1") + "\""));
-                    otherPanel.setStyle(PanelType.SUCCESS);
+                    otherPanel.withContent(Html.paragraph("The parameter value is: \"" + request.getParameter("text1") + "\""));
+                    otherPanel.withStyle(PanelType.SUCCESS);
 
             }
 
