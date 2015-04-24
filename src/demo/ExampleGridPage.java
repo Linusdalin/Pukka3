@@ -8,6 +8,7 @@ import backoffice.pages.grid.*;
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
 import backoffice.pages.template.GridPage;
+import backoffice.table.Table;
 import style.Html;
 import style.pageComponents.PageHeader;
 
@@ -37,6 +38,7 @@ public class ExampleGridPage extends GridPage implements PageInterface {
             .withContent("Dolor sit amet")
             .withStyle(PanelType.INFO);
 
+    Table dummyTable = new Table();
 
     Accordion accordion = new Accordion()
             .addSection(dummyPanel)
@@ -47,6 +49,10 @@ public class ExampleGridPage extends GridPage implements PageInterface {
             .withContent(accordion)
             .withBottom("...");
 
+    Panel tablePanel = new Panel()
+            .withTop(Icon.bars, "Table Example")
+            .withContent(dummyTable)
+            .withBottom("...");
 
     public ExampleGridPage(){
 
@@ -58,6 +64,7 @@ public class ExampleGridPage extends GridPage implements PageInterface {
                     .addColumn(new GridColumn(8)
 
                             .addPanel(formPanel)
+                            .addPanel(tablePanel)
                     )
                     .addColumn(new GridColumn(4)
 
@@ -128,10 +135,21 @@ public class ExampleGridPage extends GridPage implements PageInterface {
 
     }
 
+    //TODO: Recursively go through all components and render the scripts that components require
+
     @Override
     public String renderDataScripts(){
 
-        return  "            <script src=\"adminCommon/pukka.js\"></script>\n";
+        return  "            <script src=\"adminCommon/pukka.js\"></script>\n" +
+                "    <!-- Page-Level Demo Scripts - Tables - Use for reference -->\n" +
+                        "    <script>\n" +
+                        "    $(document).ready(function() {\n" +
+                        "        $('#dataTables-example').DataTable({\n" +
+                        "                responsive: true\n" +
+                        "        });\n" +
+                        "    });\n" +
+                        "    </script>\n" +
+                "\n\n";
 
     }
 

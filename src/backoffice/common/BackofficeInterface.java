@@ -30,4 +30,6 @@ public interface BackofficeInterface {
 
     NavBar getNavbar();
 
+    boolean createDB();
+    boolean populateValues(boolean includeTestValues);
 }

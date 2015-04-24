@@ -145,6 +145,12 @@ public class pageServlet extends PukkaServlet {
                 "    <!-- Timeline CSS -->\n" +
                 "    <link href=\"adminCommon/dist/css/timeline.css\" rel=\"stylesheet\">\n" +
                 "\n" +
+                "    <!-- DataTables CSS -->\n" +
+                "    <link href=\"adminCommon/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css\" rel=\"stylesheet\">\n" +
+                "\n" +
+                "    <!-- DataTables Responsive CSS -->\n" +
+                "    <link href=\"adminCommon/bower_components/datatables-responsive/css/dataTables.responsive.css\" rel=\"stylesheet\">" +
+                "\n" +
                 "    <!-- Custom CSS -->\n" +
                 "    <link href=\"adminCommon/dist/css/sb-admin-2.css\" rel=\"stylesheet\">\n" +
                 "\n" +
@@ -217,6 +223,10 @@ public class pageServlet extends PukkaServlet {
                 "\n" +
                 "    <!-- Metis Menu Plugin JavaScript -->\n" +
                 "    <script src=\"adminCommon/bower_components/metisMenu/dist/metisMenu.min.js\"></script>\n" +
+                "\n" +
+                "    <!-- DataTables JavaScript -->\n" +
+                "    <script src=\"adminCommon/bower_components/DataTables/media/js/jquery.dataTables.min.js\"></script>\n" +
+                "    <script src=\"adminCommon/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js\"></script>\n" +
                 "\n" +
                 "    <!-- Morris Charts JavaScript -->\n" +
                 "    <script src=\"adminCommon/bower_components/raphael/raphael-min.js\"></script>\n" +

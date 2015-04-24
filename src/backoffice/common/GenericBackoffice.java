@@ -2,12 +2,16 @@ package backoffice.common;
 
 import backoffice.acs.ACSInterface;
 import backoffice.acs.OpenDoorACS;
+import backoffice.errorHandling.LogLevel;
+import backoffice.errorHandling.PukkaLogger;
 import backoffice.form.FormInterface;
 import backoffice.lightbox.LightboxInterface;
 import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
 import backoffice.pages.predefined.Empty404Page;
 import backoffice.pages.PageInterface;
+import dataModel.table.DataTable;
+import dataModel.table.DataTableInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +26,14 @@ import java.util.List;
  *
  */
 
-abstract public class GenericBackoffice {
+abstract public class GenericBackoffice implements BackofficeInterface{
 
     private Menu menu;
     private String title = "Default Title";
     private List<PageInterface> pages = new ArrayList<PageInterface>();
-    private List<LightboxInterface> lightboxs = new ArrayList<LightboxInterface>();
+    private List<LightboxInterface> lightboxes = new ArrayList<LightboxInterface>();
     private List<FormInterface> forms = new ArrayList<FormInterface>();
+    private List<DataTableInterface> tables = new ArrayList<DataTableInterface>();
 
     private PageInterface homePage;
     private ACSInterface acs;
@@ -92,7 +97,7 @@ abstract public class GenericBackoffice {
         if(name == null)
             return null;
 
-        for (LightboxInterface lightBox : lightboxs) {
+        for (LightboxInterface lightBox : lightboxes) {
              if(lightBox.getName().equals(name))
                  return lightBox;
         }
@@ -111,7 +116,7 @@ abstract public class GenericBackoffice {
 
     protected void addLightBox(LightboxInterface lightBox) {
 
-        lightboxs.add(lightBox);
+        lightboxes.add(lightBox);
 
     }
 
@@ -121,6 +126,11 @@ abstract public class GenericBackoffice {
 
     }
 
+    protected void addTable(DataTableInterface table) {
+
+        tables.add(table);
+
+    }
 
 
     public void setTitle(String title){
@@ -156,4 +166,78 @@ abstract public class GenericBackoffice {
     public void setAcs(ACSInterface acs) {
         this.acs = acs;
     }
+
+
+    /***********************************************************************
+     *
+     *          Populate example and base data
+     *
+     *
+     * @param includeTestValues      - shall we add test data (only for test environments)
+     * @return
+     */
+
+
+    public boolean populateValues(boolean includeTestValues){
+
+        PukkaLogger.log(LogLevel.INFO, "Populating values in the database.");
+        boolean success = true;
+
+
+        for(DataTableInterface table : tables){
+
+            PukkaLogger.log(LogLevel.INFO, " *** Populating default values for table: " + table.getTableName());
+
+            try{
+
+                int populatedValues = table.populateDefaultValues();
+
+                if(populatedValues == DataTableInterface.FAIL_TO_GENERATE)
+                    return false;
+
+                if(includeTestValues){
+
+                    int testValues = table.populateTestValues();
+
+                    if(testValues == DataTableInterface.FAIL_TO_GENERATE)
+                        return false;
+
+                }
+
+
+
+            }catch (Exception e){
+
+                PukkaLogger.log(e, "Table: " + table.getTableName());
+            }
+        }
+
+        return success;
+    }
+
+    public boolean createDB(){
+
+        PukkaLogger.log(LogLevel.INFO, "Creating tables in the database.");
+        boolean success = true;
+
+
+        for(DataTableInterface table : tables){
+
+            PukkaLogger.log(LogLevel.INFO, " *** Create table: " + table.getTableName());
+
+            try{
+
+                success &= table.create();
+
+
+            }catch (Exception e){
+
+                PukkaLogger.log(e, "Table: " + table.getTableName());
+            }
+        }
+
+        return success;
+
+    }
+
 }

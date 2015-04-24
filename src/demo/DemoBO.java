@@ -10,6 +10,7 @@ import backoffice.lightbox.DynamicModal;
 import backoffice.lightbox.LightboxInterface;
 import backoffice.menu.*;
 import backoffice.pages.PageInterface;
+import dataModel.table.DataTableInterface;
 
 /**
  *          Backoffice example for rendering and testing all back office components
@@ -36,8 +37,14 @@ import backoffice.pages.PageInterface;
  *        *   - Add custom exception
  *        *   - Wells and panels (as standard components in the backoffice)
  *
- *           - Add accordion
- *           - Add tables with dynamic data loading
+ *        *   - Add accordion
+ *           - Add tables
+ *                   *   - add table from demo
+ *                      - render table and accordion at render time with request parameter passing (store component interface in panel)
+ *                      - render table content statically with page
+ *                      - add delete and edit buttons to table
+ *                      - add init script for table
+ *                      - verify tables in accordion
  *
  *
  *           - Implement form framework
@@ -48,22 +55,50 @@ import backoffice.pages.PageInterface;
  *                      - date-picker
  *
  *
- *           - merge data tables with backOffice
+ *           - New data tables with backOffice
+ *                      * - Basic Structure
+ *                      * - Basic columns
+ *                      *- DBKeyInterface
+ *                      * - DataTableInterface
+ *                      * - New simpler model
+ *                      * - Implement store
+ *                      * - Implement delete
+ *                      * - populate values
+ *                  - Port conditions
+ *                  - Replace symbolic references
+ *                  - Implement Load
+ *                  - Implement update
+ *                  - Implement Iterator
+ *                  - New data generation
+ *                  - Complete columns with timestamp, different string lengths
+ *
+ *
  *           - Table edit form, (add, edit, delete)
  *           - Add filter for tables (one filter value and pass this as parameter)
  *           - Add lists with actions
  *           - Add group by list
+ *           - Create 2 appropriate Pukka3 artifacts (appStore and MySQL)
  *
  *
- *           - Complete all icons
- *           - dynamic loading of table content
- *
- *
- *           - Access rights to backoffice pages
  *
  *           =====  Replace itClarifies Backoffice ===
  *
+ *           - Complete all icons
+ *           - Unit test coverage sweep
+ *           - Class diagram documentation
+ *           - Access rights to backoffice pages
  *           - Add ACSUser table (plus connect to Google SSO)
+ *
+ *           - Advanced Table
+ *                  - dynamic loading of table content
+ *                  - reverse lookup for tables
+ *                  - implement range filter for tables
+ *                  - Checkbox multi-selection for table- and list actions
+ *                  - add generic table styling and row styling depending on a column value (highlight filter)
+ *
+ *           - SQL tables
+ *                  - Database implementation
+ *
  *
  *           - Add chart support
  *           - Add and standardize data box (from dashboard)
@@ -74,23 +109,29 @@ import backoffice.pages.PageInterface;
  *              - invite user
  *              - access rights for pages
  *
+ *
  *           - Generic Brand support
  *           - Display Brand
- *           - Form validation
- *           - Implement search
- *           - Implement separate login page and a real local ACS impl (incl password management)
  *
- *           - Add option for dynamically loaded panels and connect action to the panel
- *           - implement message component
- *           - implement alert component
- *           - implement task component
+ *           - Add option for AJAX-loaded panels and connect action to the panel to switch
 
  *
  *           - implement event (automatically generate a service, queuing request and a handling callback)
  *
- *           - reverse lookup and table filter for tables
- *           - Form validation
+ *           - Advanced form
+ *              - Form validation
+ *              - Dynamic form fields
+ *              - Two column and side by side styling
+ *
+ *
  *           - Expand-all for accordion
+ *
+ *
+ *           - Implement separate login page and a real local ACS impl (incl password management)
+ *           - implement message component
+ *           - implement alert component
+ *           - implement task component
+ *           - Implement search
  *
  *           - Creating dynamic page tabs
  *           - implement email sending
@@ -117,6 +158,11 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
     public static final FormInterface ExampleForm = new ExampleForm(new Location(ExampleLightBoxPage.getName()));
 
     public static final LightboxInterface ExampleLightBox = new DynamicModal();
+
+    public static final DataTableInterface Table1 = new DemoItemTable();
+    public static final DataTableInterface Table2 = new DemoItem2Table();
+
+
 
     // Create a nav-bar with the optional functionality
 
@@ -173,6 +219,11 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
         addLightBox(ExampleLightBox);
 
         addForm(ExampleForm);
+
+        // Add tables
+
+        addTable(Table1);
+        addTable(Table2);
 
 
         setAcs(acs);

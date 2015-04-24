@@ -13,6 +13,8 @@ public class BackOfficeException extends Exception {
     public final String message;
 
     public enum Type {
+
+        NOT_IMPLEMENTED,                // Call of not implemented method
         GENERIC,                // Generic error
         CONFIGURATION,          // Expected configuration is missing
     }

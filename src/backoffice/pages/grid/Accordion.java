@@ -6,6 +6,8 @@ import java.util.List;
 /**
  *          An accordion has multiple sections that can be opened/collapsed one at a time
  *
+ *
+ *          //TODO: The accordion closes all other panels when one is opened. This is often not the desired behaviour. Change in the .js
  */
 public class Accordion {
 
