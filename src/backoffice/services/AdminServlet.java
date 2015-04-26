@@ -1,7 +1,9 @@
 package backoffice.services;
 
-import com.google.appengine.api.appidentity.AppIdentityServiceFactory;
-import com.google.appengine.api.utils.SystemProperty;
+import dataModel.condition.SelectAll;
+import dataModel.condition.filter.ColumnFilter;
+import demo.DemoItem;
+import demo.DemoItemTable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,6 +53,15 @@ public class AdminServlet extends PukkaServlet {
                 else
                     message = "Failed to add constants and test values";
             }
+            else if(action.equals("TEST")){
+
+                DemoItem test = new DemoItem(new SelectAll().addFilter(new ColumnFilter(DemoItemTable.Columns.Name.name(), "test Value")));
+                if(test.exists())
+                    message = "exist. Ordinal=" + test.getOrdinal() ;
+                else
+                    message = "not found :-(";
+
+            }
             else message = "Action " + action + " not implemented";
 
         }
@@ -78,6 +89,8 @@ public class AdminServlet extends PukkaServlet {
         resp.getWriter().println("<a href=\"home\">To Backoffice</a><br>");
         resp.getWriter().println("<a href=\"_ah/admin/datastore\">Database Viewer</a><br>");
 
+        resp.getWriter().println("<br>");
+        resp.getWriter().println("<a href=\"?Action=TEST\">Launch test function</a><br>");
 
         resp.getWriter().println("</body>");
         resp.getWriter().println("</html>");

@@ -10,6 +10,13 @@ public class ReferenceColumn extends DataColumn implements ColumnStructureInterf
 
     TableReference reference;
 
+    public static final String defaultValue = "- empty -";
+
+    public Object getDefaultValue() {
+        return defaultValue;
+    }
+
+
     public ReferenceColumn(String name, DisplayFormat format, TableReference reference){
 
         super(name, format, ColumnType.Reference);

@@ -2,22 +2,31 @@ package dataModel.table;
 
 import backoffice.errorHandling.BackOfficeException;
 import dataModel.column.ColumnStructureInterface;
+import dataModel.condition.ConditionInterface;
 import dataModel.databaseLayer.DBKeyInterface;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Linus
- * Date: 2015-04-22
- * Time: 18:47
- * To change this template use File | Settings | File Templates.
+/****************************************************************************'
+ *
+ *          Interface for all data objects
+ *
  */
+
+
 public interface DataObjectInterface {
 
 
-    public DBKeyInterface store() throws BackOfficeException;
+    void load(ConditionInterface condition) throws BackOfficeException;
+    DBKeyInterface store() throws BackOfficeException;
+    boolean update() throws BackOfficeException;
 
 
-    public ColumnStructureInterface[] getStructure();
+    ColumnStructureInterface[] getStructure();
+    public void replaceAbstractReference() throws BackOfficeException;
+
 
     String getTableName();
+
+    DBKeyInterface getKey();
+
+    boolean exists();
 }

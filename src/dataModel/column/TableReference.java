@@ -1,5 +1,7 @@
 package dataModel.column;
 
+import dataModel.table.DataTableInterface;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Linus
@@ -9,8 +11,21 @@ package dataModel.column;
  */
 public class TableReference {
 
-    public TableReference(String table, String name) {
+    private final String tableName;
+    private final String column;
+
+    public TableReference(String tableName, String column) {
 
         //To change body of created methods use File | Settings | File Templates.
+        this.tableName = tableName;
+        this.column = column;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public String getColumn() {
+        return column;
     }
 }

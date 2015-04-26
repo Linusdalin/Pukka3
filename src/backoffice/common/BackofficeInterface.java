@@ -1,11 +1,13 @@
 package backoffice.common;
 
 import backoffice.acs.ACSInterface;
+import backoffice.errorHandling.BackOfficeException;
 import backoffice.form.FormInterface;
 import backoffice.lightbox.LightboxInterface;
 import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
 import backoffice.pages.PageInterface;
+import dataModel.table.DataTableInterface;
 
 /******************************************************************
  *
@@ -32,4 +34,6 @@ public interface BackofficeInterface {
 
     boolean createDB();
     boolean populateValues(boolean includeTestValues);
+
+    DataTableInterface getTableByName(String name) throws BackOfficeException;
 }

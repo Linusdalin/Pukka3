@@ -20,4 +20,6 @@ public interface ColumnStructureInterface {
     public boolean isNameColumn();
 
     String getName();
+
+    Object getDefaultValue();
 }

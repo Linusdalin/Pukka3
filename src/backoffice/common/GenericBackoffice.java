@@ -2,6 +2,7 @@ package backoffice.common;
 
 import backoffice.acs.ACSInterface;
 import backoffice.acs.OpenDoorACS;
+import backoffice.errorHandling.BackOfficeException;
 import backoffice.errorHandling.LogLevel;
 import backoffice.errorHandling.PukkaLogger;
 import backoffice.form.FormInterface;
@@ -10,6 +11,7 @@ import backoffice.menu.Menu;
 import backoffice.menu.NavBar;
 import backoffice.pages.predefined.Empty404Page;
 import backoffice.pages.PageInterface;
+import dataModel.condition.SelectAll;
 import dataModel.table.DataTable;
 import dataModel.table.DataTableInterface;
 
@@ -197,6 +199,7 @@ abstract public class GenericBackoffice implements BackofficeInterface{
 
                 if(includeTestValues){
 
+                    PukkaLogger.log(LogLevel.INFO, " *** Populating test values for table: " + table.getTableName());
                     int testValues = table.populateTestValues();
 
                     if(testValues == DataTableInterface.FAIL_TO_GENERATE)
@@ -212,7 +215,22 @@ abstract public class GenericBackoffice implements BackofficeInterface{
             }
         }
 
+        success &= replaceSymbolicValues();
+
         return success;
+    }
+
+    public DataTableInterface getTableByName(String tableName) throws BackOfficeException {
+
+        for (DataTableInterface table : tables) {
+
+            if(table.getTableName().equals(tableName))
+                return table;
+
+        }
+
+        throw new BackOfficeException(BackOfficeException.Type.CONFIGURATION, "Table " + tableName + " not found");
+
     }
 
     public boolean createDB(){
@@ -220,6 +238,16 @@ abstract public class GenericBackoffice implements BackofficeInterface{
         PukkaLogger.log(LogLevel.INFO, "Creating tables in the database.");
         boolean success = true;
 
+        success &= createTables();
+
+        return success;
+
+    }
+
+
+    private boolean createTables(){
+
+        boolean success = true;
 
         for(DataTableInterface table : tables){
 
@@ -239,5 +267,31 @@ abstract public class GenericBackoffice implements BackofficeInterface{
         return success;
 
     }
+
+
+    private boolean replaceSymbolicValues(){
+
+        boolean success = true;
+
+        for(DataTableInterface table : tables){
+
+            PukkaLogger.log(LogLevel.INFO, " *** Create symbolic values for table: " + table.getTableName());
+
+            try{
+
+                table.load(new SelectAll());
+                success &= table.replaceSymbolicValues(this);
+
+
+            }catch (Exception e){
+
+                PukkaLogger.log(e, "Table: " + table.getTableName());
+            }
+        }
+
+        return success;
+
+    }
+
 
 }

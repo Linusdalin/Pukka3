@@ -1,7 +1,10 @@
 package demo;
 
-import data.dataBaseLayer.Appengine.AppEngineKey;
+import backoffice.errorHandling.BackOfficeException;
+import backoffice.errorHandling.PukkaLogger;
+import data.dataBaseLayer.DBResultSetInterface;
 import dataModel.column.*;
+import dataModel.condition.ConditionInterface;
 import dataModel.databaseLayer.AbstractKey;
 import dataModel.table.DataObjectInterface;
 import dataModel.table.DataTable;
@@ -24,7 +27,7 @@ public class DemoItemTable extends DataTable implements DataTableInterface {
 
     public enum Columns {Name, Fragment, Ordinal }
 
-    public static final ColumnStructureInterface[] _DATA = new ColumnStructureInterface[] {
+    public static final ColumnStructureInterface[] _STRUCTURE = new ColumnStructureInterface[] {
 
             new StringColumn("Name",        DisplayFormat.REGULAR),
             new ReferenceColumn("Fragment", DisplayFormat.REGULAR, new TableReference(DemoItem2Table._TABLE, DemoItem2Table.Columns.Name.name())),
@@ -33,7 +36,7 @@ public class DemoItemTable extends DataTable implements DataTableInterface {
 
     public DemoItemTable(){
 
-        init(_DATA, _TABLE, _TITLE, _DESCRIPTION, _DefaultValues, _TestValues);
+        init(_STRUCTURE, _TABLE, _TITLE, _DESCRIPTION, _DefaultValues, _TestValues);
     }
 
     private static final DataObjectInterface[] _DefaultValues = {
@@ -44,12 +47,42 @@ public class DemoItemTable extends DataTable implements DataTableInterface {
 
     private static final  DataObjectInterface[] _TestValues = {
 
-
             new DemoItem("test Value", new AbstractKey("demo2"), 17),
 
-
-
     };
+
+    public DemoItemTable(ConditionInterface condition){
+
+        init(_STRUCTURE, _TABLE, _TITLE, _DESCRIPTION, _DefaultValues, _TestValues);
+        load(condition);
+    }
+
+    public void load(ConditionInterface condition){
+
+        try{
+
+            DBResultSetInterface listValues = super.loadValues( condition );
+
+            while(listValues.hasNext()) {
+
+                //System.out.println(" !!! Load value from table " + _TABLE);
+
+                Object[] values = listValues.getNext(_STRUCTURE);
+
+                DemoItem item = new DemoItem(values);
+                _loadedValues.add(item);
+            }
+
+        }catch(BackOfficeException e){
+
+            PukkaLogger.log( e );
+        }
+    }
+
+    public DataObjectInterface getItem(ConditionInterface condition) {
+
+        return new DemoItem(condition);
+    }
 
 
     /* Code below this point will not be replaced when regenerating the file*/

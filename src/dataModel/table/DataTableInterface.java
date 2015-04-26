@@ -1,5 +1,11 @@
 package dataModel.table;
 
+import backoffice.common.BackofficeInterface;
+import backoffice.errorHandling.BackOfficeException;
+import data.dataBaseLayer.DBResultSetInterface;
+import dataModel.condition.ConditionInterface;
+
+
 /**
  * Created with IntelliJ IDEA.
  * User: Linus
@@ -16,5 +22,13 @@ public interface DataTableInterface {
     int populateDefaultValues();
     int populateTestValues();
 
+    public void load(ConditionInterface condition);
+
+
     boolean create();
+    boolean replaceSymbolicValues(BackofficeInterface backOffice);
+
+    //DBResultSetInterface loadValues(ConditionInterface condition)throws BackOfficeException;
+
+    DataObjectInterface getItem(ConditionInterface condition);
 }

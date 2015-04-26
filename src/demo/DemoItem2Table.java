@@ -1,9 +1,16 @@
 package demo;
 
+import backoffice.errorHandling.BackOfficeException;
+import backoffice.errorHandling.PukkaLogger;
+import data.dataBaseLayer.DBResultSetInterface;
 import dataModel.column.*;
+import dataModel.condition.ConditionInterface;
+import dataModel.databaseLayer.DBKeyInterface;
 import dataModel.table.DataObjectInterface;
 import dataModel.table.DataTable;
 import dataModel.table.DataTableInterface;
+
+import java.util.List;
 
 
 /********************************************************
@@ -22,7 +29,7 @@ public class DemoItem2Table extends DataTable implements DataTableInterface {
 
     public enum Columns {Name, Ordinal }
 
-    public static final ColumnStructureInterface[] _DATA = new ColumnStructureInterface[] {
+    public static final ColumnStructureInterface[] _STRUCTURE = new ColumnStructureInterface[] {
 
             new StringColumn("Name",        DisplayFormat.REGULAR),
             new IntColumn("Ordinal",        DisplayFormat.REGULAR),
@@ -30,7 +37,7 @@ public class DemoItem2Table extends DataTable implements DataTableInterface {
 
     public DemoItem2Table(){
 
-        init(_DATA, _TABLE, _TITLE, _DESCRIPTION, _DefaultValues, _TestValues);
+        init(_STRUCTURE, _TABLE, _TITLE, _DESCRIPTION, _DefaultValues, _TestValues);
     }
 
 
@@ -38,14 +45,44 @@ public class DemoItem2Table extends DataTable implements DataTableInterface {
 
             new DemoItem2("xxx", 4711),
 
-
-
     };
     private static final DataObjectInterface[] _TestValues = {
 
 
-
     };
+
+
+    public DemoItem2Table(ConditionInterface condition){
+
+        init(_STRUCTURE, _TABLE, _TITLE, _DESCRIPTION, _DefaultValues, _TestValues);
+        load(condition);
+    }
+
+    public void load(ConditionInterface condition){
+
+        try{
+
+            DBResultSetInterface listValues = super.loadValues( condition );
+
+            while(listValues.hasNext()) {
+                Object[] values = listValues.getNext(_STRUCTURE);
+
+                DemoItem2 item = new DemoItem2(values);
+                _loadedValues.add(item);
+            }
+
+        }catch(BackOfficeException e){
+
+            PukkaLogger.log(e);
+        }
+    }
+
+    public DataObjectInterface getItem(ConditionInterface condition) {
+
+        return new DemoItem2(condition);
+    }
+
+
 
 
     /* Code below this point will not be replaced when regenerating the file*/

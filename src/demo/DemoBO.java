@@ -64,12 +64,16 @@ import dataModel.table.DataTableInterface;
  *                      * - Implement store
  *                      * - Implement delete
  *                      * - populate values
- *                  - Port conditions
+ *                      * - Port conditions
+ *                  - Implement Load Object
+ *                  - Implement Load list
  *                  - Replace symbolic references
- *                  - Implement Load
  *                  - Implement update
  *                  - Implement Iterator
  *                  - New data generation
+ *                  - Handle null as table reference
+ *                  - Get allXforY() method (generate methods for all)
+ *                  - Get value list with type (generate method)
  *                  - Complete columns with timestamp, different string lengths
  *
  *
@@ -85,8 +89,16 @@ import dataModel.table.DataTableInterface;
  *
  *           - Complete all icons
  *           - Unit test coverage sweep
+ *           - Method documentation sweep
+ *           - t o d o sweep. Fix critical and backlog others
  *           - Class diagram documentation
- *           - Access rights to backoffice pages
+ *           - Create simple manual
+ *                  - create tables/objects
+ *                  - back office components
+ *                  - Data access and conditions
+ *
+ *            ==== Pukka 0.9 prototyping model release =====
+ *
  *           - Add ACSUser table (plus connect to Google SSO)
  *
  *           - Advanced Table
