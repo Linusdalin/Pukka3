@@ -1,13 +1,18 @@
 package data.dataBaseLayer.Appengine;
 
 import backoffice.errorHandling.BackOfficeException;
+import backoffice.errorHandling.LogLevel;
 import backoffice.errorHandling.PukkaLogger;
 import com.google.appengine.api.datastore.*;
+import com.google.apphosting.api.ApiProxy;
+import data.dataBaseLayer.DBResultSetInterface;
 import data.dataBaseLayer.DatabaseAbstractionInterface;
 import dataModel.column.ColumnStructureInterface;
+import dataModel.condition.ConditionInterface;
+import dataModel.condition.Sorting;
+import dataModel.condition.filter.FilterInterface;
 import dataModel.databaseLayer.DBKeyInterface;
 import dataModel.table.DataObjectInterface;
-import dataModel.table.DataTable;
 import dataModel.table.DataTableInterface;
 
 import java.util.ArrayList;
@@ -19,13 +24,13 @@ import java.util.List;
  *              using the data store
  */
 
-public class AppEngineDatastore implements DatabaseAbstractionInterface {
+public class AppengineDatastore implements DatabaseAbstractionInterface {
 
 
     public DBKeyInterface createKey(Object data) {
-        //TODO: not implemented
 
-        return null;
+        return new AppEngineKey((String)data);
+
     }
 
     /***********************************************************
@@ -38,7 +43,7 @@ public class AppEngineDatastore implements DatabaseAbstractionInterface {
      * @return
      */
 
-    public boolean createTable(DataTable dataTable) {
+    public boolean createTable(DataTableInterface dataTable) {
 
         //TODO: delete existing values not implemented
 
@@ -55,6 +60,61 @@ public class AppEngineDatastore implements DatabaseAbstractionInterface {
         return storeEntity(entity);
 
     }
+
+    //TODO: Check so that the update actually did work
+
+    public boolean update(DataObjectInterface object, Object[] parameters) throws BackOfficeException{
+
+        try{
+
+            DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
+            AppEngineKey appKey = (AppEngineKey)object.getKey();
+            Entity entity = dataStore.get(appKey.key);
+            System.out.println("Updating entity with key " + object.getKey().toString());
+            entity = createEntity(entity, object, parameters);
+            storeEntity(entity);
+            return true;
+
+        }catch(EntityNotFoundException e){
+
+            PukkaLogger.log(LogLevel.ERROR, "Entity not found in update");
+            return false;
+        }
+    }
+
+
+    public DBResultSetInterface load(String tableName, ConditionInterface condition, boolean useReferences) throws BackOfficeException {
+
+       try{
+
+           DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
+           Query q = getQuery(condition, tableName);
+           PreparedQuery pq = dataStore.prepare(q);
+
+           //PukkaLogger.log(PukkaLogger.Level.INFO, "Using Query: " + q.toString());
+
+           DBResultSetInterface result = new AppEngineResultSet(pq.asIterable(), tableName, useReferences);
+           return result;
+
+       }catch(DatastoreNeedIndexException e){
+
+           // Special case for Google App engine. The indexes have to be created manually,
+           // but this is not seen on the dev server
+
+           PukkaLogger.log(e);
+           throw new BackOfficeException(BackOfficeException.Type.GENERIC, "The system is down for maintenance. Please try again later");
+
+       }catch(ApiProxy.OverQuotaException e){
+
+           // For non-paid apps, this may happen. Live server should of course not have this issue....
+
+           PukkaLogger.log(e);
+           throw new BackOfficeException(BackOfficeException.Type.GENERIC, "The system is down for maintenance. Please try again later");
+
+       }
+
+    }
+
 
     private Entity createEntity(DataObjectInterface object, Object[] par) throws BackOfficeException {
 
@@ -229,6 +289,8 @@ public class AppEngineDatastore implements DatabaseAbstractionInterface {
 
         try{
 
+            System.out.println("Deleting all from " + table);
+
             DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
             Query delete = new Query(table);
@@ -242,6 +304,8 @@ public class AppEngineDatastore implements DatabaseAbstractionInterface {
                 deleted++;
             }
 
+            System.out.println("Deleting " + deleted + " items from table " + table);
+
             dataStore.delete(killList);
 
             return deleted;
@@ -251,6 +315,76 @@ public class AppEngineDatastore implements DatabaseAbstractionInterface {
             PukkaLogger.log( e );
             return -1;
         }
+    }
+
+
+    /*********************************************************************************
+     *
+     *      Create and build a query based on the condition.
+     *
+     * @param condition
+     * @param tableName
+     * @return              - the Query with the condition
+     *
+     * @throws BackOfficeException
+     *
+     *
+     *                           //TODO: Add a check that the filter column contains valid column names. (Common mistake)
+     *                           //TODO: Range filter not implemented
+     *                           //TODO: DistinctFilter not implemented
+     */
+
+    private Query getQuery(ConditionInterface condition, String tableName){
+
+        Query query = new Query(tableName);
+
+        for(FilterInterface filter : condition.getFilters()){
+
+            //PukkaLogger.log(PukkaLogger.Level.INFO, "Filter:" + filter.getColumn() + "=" + filter.getValue());
+
+            /*
+
+            if(filter instanceof DistinctFilter){
+
+                uniqueByColumn = filter.getColumn();
+
+            }
+
+            if(filter instanceof RangeFilter){
+
+                query.addFilter(((RangeFilter) filter).from.getColumn(), ((RangeFilter)filter).from.getOperator(), ((RangeFilter)filter).from.getValue());
+                query.addFilter(((RangeFilter) filter).to.getColumn(), ((RangeFilter)filter).to.getOperator(), ((RangeFilter)filter).to.getValue());
+
+            }else{
+
+                query.addFilter(filter.getColumn(), filter.getOperator(), filter.getValue());
+                //System.out.println(" *** Adding filter: " + filter.getColumn() + " " + filter.getOperator().toString() + " " + filter.getValue() );
+            }
+
+            */
+
+        }
+
+        Sorting sorting = condition.getSorting();
+
+        switch (sorting.ordering) {
+
+            case NONE:
+                break;
+
+            case FIRST_FIRST:
+
+                query.addSort(sorting.column, Query.SortDirection.ASCENDING);
+                break;
+
+            case LAST_FIRST:
+                query.addSort(sorting.column, Query.SortDirection.DESCENDING);
+                break;
+
+        }
+
+        return query;
+
     }
 
 }

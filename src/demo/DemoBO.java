@@ -51,6 +51,7 @@ import dataModel.table.DataTableInterface;
  *                      * - Add forms with basic components
  *                      * - form submit
  *                      * - prefill form
+ *                      - post ajax json
  *                      - checkbox, radiobutton and dropdown
  *                      - date-picker
  *
@@ -65,17 +66,18 @@ import dataModel.table.DataTableInterface;
  *                      * - Implement delete
  *                      * - populate values
  *                      * - Port conditions
- *                  - Implement Load Object
- *                  - Implement Load list
- *                  - Replace symbolic references
- *                  - Implement update
- *                  - Implement Iterator
- *                  - New data generation
- *                  - Handle null as table reference
+ *                      * - Implement Load Object
+ *                      * - Implement Load list
+ *                      * - Replace symbolic references
+ *                      * - Implement update
  *                  - Get allXforY() method (generate methods for all)
  *                  - Get value list with type (generate method)
  *                  - Complete columns with timestamp, different string lengths
+ *                  - Implement Iterator
  *
+ *           - New data generation
+ *                      * - generate files
+ *                      * - replace files
  *
  *           - Table edit form, (add, edit, delete)
  *           - Add filter for tables (one filter value and pass this as parameter)
@@ -107,6 +109,8 @@ import dataModel.table.DataTableInterface;
  *                  - implement range filter for tables
  *                  - Checkbox multi-selection for table- and list actions
  *                  - add generic table styling and row styling depending on a column value (highlight filter)
+ *
+ *           - Automatic generation of a servlet framework given parameters and config
  *
  *           - SQL tables
  *                  - Database implementation

@@ -1,49 +1,72 @@
 package backoffice.table;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Linus
- * Date: 2015-04-15
- * Time: 11:01
- * To change this template use File | Settings | File Templates.
+/***************************************************************************'''
+ *
+ *
+ *          Backoffice table component based on a JSON Array of objects
+ *
+ *
  */
-public class Table implements TableInterface {
+public class JSONTable extends DataTable implements TableInterface {
 
+    private String source;
+    String[] columnNames;
+    String[] columnIds;
+    StringBuffer mPropList = new StringBuffer();
 
+    public JSONTable(String source, String[] columnNames, String[] columnIds){
 
-    public Table(){
+        this.source = source;
+        this.columnNames = columnNames;
+        this.columnIds = columnIds;
+
+        mPropList.append("[");
+        for (String columnId : columnIds) {
+            mPropList.append("{\"mDataProp\":\""+columnId+"\"}, ");
+        }
+        mPropList.append("]");
 
     }
 
 
-    public String render(){
+    public String render() {
 
-        return
-                "<div class=\"dataTable_wrapper\">\n" +
-                        "                                <table class=\"table table-striped table-bordered table-hover\" id=\"dataTables-example\">\n" +
-                        "                                    <thead>\n" +
-                        "                                        <tr>\n" +
-                        "                                            <th>Data</th>\n" +
-                        "                                            <th>Browser</th>\n" +
-                        "                                        </tr>\n" +
-                        "                                    </thead>\n" +
-                        "                                </table>\n" +
-                        "                            </div>" +
+
+        StringBuffer html = new StringBuffer();
+
+        html.append(
+                        "               <div class=\"dataTable_wrapper\">\n" +
+                        "                   <table class=\"table table-striped table-bordered table-hover\" id=\"dataTables-example\">\n" +
+                        "                       <thead>\n" +
+                        "                           <tr>\n");
+        for (String columnName : columnNames) {
+
+            html.append("                               <th>" + columnName + "</th>\n");
+        }
+
+        html.append(
+                        "                           </tr>\n" +
+                        "                       </thead>\n" +
+                        "                   </table>\n" +
+                        "               </div>" +
                         "    <!-- Page-Level Demo Scripts - Tables - Use for reference -->\n" +
-                                "    <script>\n" +
-                                "    $(document).ready(function() {\n" +
-                                //"        var data = \"[{\\\"Data\\\":\\\"1\\\", \\\"Browser\\\":\\\"2\\\"}, {\\\"Data\\\":\\\"1\\\", \\\"Browser\\\":\\\"2\\\"} ];\"\n"+
-                                "        var data = [{\"Data\":\"1\", \"Browser\":\"2\"}, {\"Data\":\"1\", \"Browser\":\"2\"} ];\n"+
-                                "        $('#dataTables-example').DataTable({\n" +
-                                "                responsive: true,\n" +
-                                "                \"aaData\": data,\n" +
-                                "                \"aoColumns\": [{\"mDataProp\":\"Data\"}, {\"mDataProp\":\"Browser\"} ]\n" +
-                                //"                \"ajax\": '/array.json'\n" +
-                                "        });\n" +
-                                "    });\n" +
-                                "    </script>\n" +
-                        "\n\n";
+                        "    <script>\n" +
+                        "    $(document).ready(function() {\n" +
+                        //"        var data = \"[{\\\"Data\\\":\\\"1\\\", \\\"Browser\\\":\\\"2\\\"}, {\\\"Data\\\":\\\"1\\\", \\\"Browser\\\":\\\"2\\\"} ];\"\n"+
 
+                        "        $.getJSON(\""+ source+"\", function(data, status){\n"+
+                        "           $('#dataTables-example').DataTable({\n" +
+                        "                responsive: true,\n" +
+                        "                \"aaData\": data,\n" +
+                        "                \"aoColumns\": "+ mPropList+"\n" +
+                        //"                \"ajax\": '/array.json'\n" +
+                        "            });\n" +
+                        "        });\n" +
+                        "    });\n" +
+                        "    </script>\n" +
+                        "\n\n");
+
+        return html.toString();
     }
 
 

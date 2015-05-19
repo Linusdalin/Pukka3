@@ -2,6 +2,7 @@ package backoffice.pages.grid;
 
 import backoffice.menu.Icon;
 import backoffice.table.Table;
+import backoffice.table.TableInterface;
 
 /**
  *          A panel is the smallest building block of the pages.
@@ -64,7 +65,7 @@ public class Panel implements PanelInterface{
         return this;
     }
 
-    public Panel withContent(Table table) {
+    public Panel withContent(TableInterface table) {
 
         this.mainContent = table.render();
         return this;

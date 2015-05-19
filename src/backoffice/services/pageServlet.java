@@ -6,6 +6,7 @@ import backoffice.form.CallbackMessage;
 import backoffice.form.FormInterface;
 import backoffice.pages.PageInterface;
 import style.Html;
+import style.PukkaHtml;
 import style.pageComponents.BrandTitle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -93,7 +94,11 @@ public class pageServlet extends PukkaServlet {
                 String formName = req.getParameter("form");
                 FormInterface form = backOffice.getFormByName(formName);
 
-                message = form.submitCallBack(req);
+                if(form == null){
+                    message = new CallbackMessage(CallbackMessage.CallbackAction.ERROR, "Form " + formName + " does not exist" );
+                }
+                else
+                    message = form.submitCallBack(req);
 
             }
 
@@ -134,7 +139,7 @@ public class pageServlet extends PukkaServlet {
                 "    <meta name=\"description\" content=\"\">\n" +
                 "    <meta name=\"author\" content=\"\">\n" +
 
-                Html.title( backOffice.getSystemTitle() ) +
+                Html.title( backOffice.getSystemTitle() ) + "\n\n" +
 
                 "    <!-- Bootstrap Core CSS -->\n" +
                 "    <link href=\"adminCommon/bower_components/bootstrap/dist/css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
@@ -166,7 +171,33 @@ public class pageServlet extends PukkaServlet {
                 "        <script src=\"https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js\"></script>\n" +
                 "        <script src=\"https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js\"></script>\n" +
                 "    <![endif]-->\n" +
+                "\n");
+
+        html.append(
+
                 "\n" +
+                "    <!-- jQuery -->\n" +
+                "    <script src=\"adminCommon/bower_components/jquery/dist/jquery.min.js\"></script>\n" +
+                "\n" +
+                "    <!-- Bootstrap Core JavaScript -->\n" +
+                "    <script src=\"adminCommon/bower_components/bootstrap/dist/js/bootstrap.min.js\"></script>\n" +
+                "    <script src=\"adminCommon/js/bootstrap-datepicker.min.js\"></script>\n" +
+                "\n" +
+                "    <!-- Metis Menu Plugin JavaScript -->\n" +
+                "    <script src=\"adminCommon/bower_components/metisMenu/dist/metisMenu.min.js\"></script>\n" +
+                "\n" +
+                "    <!-- DataTables JavaScript -->\n" +
+                "    <script src=\"adminCommon/bower_components/DataTables/media/js/jquery.dataTables.min.js\"></script>\n" +
+                "    <script src=\"adminCommon/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js\"></script>\n" +
+                "\n" +
+                "    <!-- Morris Charts JavaScript -->\n" +
+                "    <script src=\"adminCommon/bower_components/raphael/raphael-min.js\"></script>\n" +
+                "    <script src=\"adminCommon/bower_components/morrisjs/morris.min.js\"></script>\n" +
+
+                "    <!-- Custom Theme JavaScript -->\n" +
+                "    <script src=\"adminCommon/dist/js/sb-admin-2.js\"></script>\n");
+
+        html.append(
                 "</head>\n" +
                 "\n" +
                 "<body>\n" +
@@ -213,7 +244,11 @@ public class pageServlet extends PukkaServlet {
                 "        </div>\n" +
                 "        <!-- /#page-wrapper -->\n" +
                 "    </div>\n" +
-                "    <!-- /#wrapper -->\n" +
+                "    <!-- /#wrapper -->\n");
+
+        /*
+        html.append(
+
                 "\n" +
                 "    <!-- jQuery -->\n" +
                 "    <script src=\"adminCommon/bower_components/jquery/dist/jquery.min.js\"></script>\n" +
@@ -241,6 +276,7 @@ public class pageServlet extends PukkaServlet {
                 "\n" +
                 "</html>\n");
 
+            */
         return html.toString();
     }
 

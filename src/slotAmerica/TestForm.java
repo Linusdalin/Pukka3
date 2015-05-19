@@ -1,4 +1,4 @@
-package demo;
+package slotAmerica;
 
 import backoffice.common.Location;
 import backoffice.form.*;
@@ -13,12 +13,12 @@ import java.util.List;
  *
  */
 
-public class ExampleForm extends Form implements FormInterface {
+public class TestForm extends Form implements FormInterface {
 
     List<FormFieldInterface> fields = new ArrayList<FormFieldInterface>();
 
 
-    public ExampleForm(Location location){
+    public TestForm(Location location){
 
         super("ExampleForm", location);
 
@@ -34,22 +34,20 @@ public class ExampleForm extends Form implements FormInterface {
         fields.add(new DescriptionText("text3")
                             .withValue("This is static text (without label)"));
 
-        fields.add(new DateField("date")
-                            .withLabel("Date"));
-
         fields.add(new Button("button1")
                             .withValue("Click Me!"));
 
 
 
         setElements(fields);
+        setAjaxSubmit("submit.jsp");
 
     }
 
 
     public CallbackMessage submitCallBack( HttpServletRequest request){
 
-        return(new CallbackMessage(CallbackMessage.CallbackAction.WARNING, "TODO: No action for example implemented."));
+        return(new CallbackMessage(CallbackMessage.CallbackAction.WARNING, "TODO: No action for form example implemented."));
     }
 
 

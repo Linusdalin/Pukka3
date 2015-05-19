@@ -2,13 +2,11 @@ package demo;
 
 import backoffice.errorHandling.BackOfficeException;
 import backoffice.errorHandling.PukkaLogger;
-import data.dataBaseLayer.DatabaseAbstractionFactory;
-import dataModel.column.ColumnStructureInterface;
+import data.dataBaseLayer.DataBaseAbstractionFactory;
 import dataModel.condition.ConditionInterface;
 import dataModel.databaseLayer.DBKeyInterface;
 import dataModel.table.DataObject;
 import dataModel.table.DataObjectInterface;
-import dataModel.table.DataTableInterface;
 
 /*********************************************************************''
  *
@@ -20,7 +18,7 @@ import dataModel.table.DataTableInterface;
 
 public class DemoItem extends DataObject implements DataObjectInterface {
 
-    private static final String __TableName = "DemoItem";
+    // Generated Data object values
 
     private String m_name;
     private DBKeyInterface m_ref;
@@ -55,7 +53,7 @@ public class DemoItem extends DataObject implements DataObjectInterface {
         this.__key = (DBKeyInterface)values[0];
 
         this.m_name = (String)values[1];
-        this.m_ref = new DatabaseAbstractionFactory().createKey(values[2]);
+        this.m_ref = new DataBaseAbstractionFactory().createKey(values[2]);
         this.m_ordinal = (Integer)values[3];
 
     }
@@ -74,30 +72,18 @@ public class DemoItem extends DataObject implements DataObjectInterface {
 
     }
 
-
-
     public DBKeyInterface store() throws BackOfficeException{
 
         return super.storeElement(m_name, m_ref, m_ordinal);
     }
 
 
-    @Deprecated
-    public void load(ConditionInterface condition) throws BackOfficeException{
-
-        Object[] values = super.loadElement( condition );
-
-        this.m_name = (String)values[1];
-        this.m_ref = new DatabaseAbstractionFactory().createKey(values[2]);
-        this.m_ordinal = (Integer)values[3];
-
-    }
-
     public boolean update() throws BackOfficeException{
 
         return super.updateElement(m_name, m_ref, m_ordinal);
     }
 
+    // Access methods for the private variables
 
     public String getName() {
         return m_name;

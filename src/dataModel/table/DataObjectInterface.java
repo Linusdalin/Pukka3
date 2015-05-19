@@ -2,7 +2,6 @@ package dataModel.table;
 
 import backoffice.errorHandling.BackOfficeException;
 import dataModel.column.ColumnStructureInterface;
-import dataModel.condition.ConditionInterface;
 import dataModel.databaseLayer.DBKeyInterface;
 
 /****************************************************************************'
@@ -14,8 +13,6 @@ import dataModel.databaseLayer.DBKeyInterface;
 
 public interface DataObjectInterface {
 
-
-    void load(ConditionInterface condition) throws BackOfficeException;
     DBKeyInterface store() throws BackOfficeException;
     boolean update() throws BackOfficeException;
 

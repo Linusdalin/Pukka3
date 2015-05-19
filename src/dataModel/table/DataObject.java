@@ -3,9 +3,8 @@ package dataModel.table;
 import backoffice.common.BackofficeFactory;
 import backoffice.common.BackofficeInterface;
 import backoffice.errorHandling.BackOfficeException;
-import backoffice.errorHandling.PukkaLogger;
 import data.dataBaseLayer.DBResultSetInterface;
-import data.dataBaseLayer.DatabaseAbstractionFactory;
+import data.dataBaseLayer.DataBaseAbstractionFactory;
 import data.dataBaseLayer.DatabaseAbstractionInterface;
 import dataModel.column.ColumnStructureInterface;
 import dataModel.column.ReferenceColumn;
@@ -36,7 +35,7 @@ abstract public class DataObject implements DataObjectInterface{
 
         this.structure = structure;
         this.tableName = tableName;
-        database = new DatabaseAbstractionFactory().getDatabase();
+        database = new DataBaseAbstractionFactory().getDatabase();
 
     }
 

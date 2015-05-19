@@ -1,6 +1,7 @@
 package data.dataBaseLayer;
 
-import data.dataBaseLayer.Appengine.AppEngineDatastore;
+import data.dataBaseLayer.Appengine.AppengineDatastore;
+import dataModel.databaseLayer.AbstractKey;
 import dataModel.databaseLayer.DBKeyInterface;
 
 /**************************************************************
@@ -8,9 +9,9 @@ import dataModel.databaseLayer.DBKeyInterface;
  *
  */
 
-public class DatabaseAbstractionFactory {
+public class DataBaseAbstractionFactory {
 
-    private static DatabaseAbstractionInterface database = new AppEngineDatastore();
+    private static DatabaseAbstractionInterface database = new AppengineDatastore();
 
     public DatabaseAbstractionInterface getDatabase(){
 
@@ -19,6 +20,16 @@ public class DatabaseAbstractionFactory {
 
     public DBKeyInterface createKey(Object data){
 
-        return database.createKey(data);
+        DBKeyInterface key;
+
+        try{
+
+            key = database.createKey(data);
+
+        }catch(Exception e){
+
+            key = new AbstractKey((String)data);
+        }
+        return key;
     }
 }

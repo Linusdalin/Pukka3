@@ -5,10 +5,9 @@ import backoffice.errorHandling.BackOfficeException;
 import backoffice.errorHandling.LogLevel;
 import backoffice.errorHandling.PukkaLogger;
 import data.dataBaseLayer.DBResultSetInterface;
-import data.dataBaseLayer.DatabaseAbstractionFactory;
+import data.dataBaseLayer.DataBaseAbstractionFactory;
 import data.dataBaseLayer.DatabaseAbstractionInterface;
 import dataModel.column.ColumnStructureInterface;
-import dataModel.column.ReferenceColumn;
 import dataModel.condition.ConditionInterface;
 import dataModel.databaseLayer.DBKeyInterface;
 
@@ -40,7 +39,7 @@ abstract public class DataTable implements DataTableInterface {
 
         this.structure = structure;
 
-        _database = new DatabaseAbstractionFactory().getDatabase();
+        _database = new DataBaseAbstractionFactory().getDatabase();
 
         this._defaultValues = defaultValues;
         this._testValues = testValues;

@@ -13,7 +13,7 @@ import dataModel.table.DataTableInterface;
 
 /********************************************************
  *
- *    ContractAnnotation - Data Table
+ *    DemoItem - Data Table
  *    Automatically generated file by GenerateTable.java
  *
  *
@@ -64,8 +64,6 @@ public class DemoItemTable extends DataTable implements DataTableInterface {
             DBResultSetInterface listValues = super.loadValues( condition );
 
             while(listValues.hasNext()) {
-
-                //System.out.println(" !!! Load value from table " + _TABLE);
 
                 Object[] values = listValues.getNext(_STRUCTURE);
 
