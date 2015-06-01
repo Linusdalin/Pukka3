@@ -5,12 +5,11 @@ import backoffice.errorHandling.PukkaLogger;
 import backoffice.form.FormInterface;
 import backoffice.menu.Icon;
 import backoffice.pages.grid.*;
-import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
 import backoffice.pages.template.GridPage;
 import backoffice.table.Table;
-import style.Html;
-import style.pageComponents.PageHeader;
+import backoffice.style.Html;
+import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,13 +26,13 @@ public class ExampleGridPage extends GridPage implements PageInterface {
     // The sections that should be filled with content has to be defined
     // as class variable to be able to easily modify in the render method
 
-    Panel formPanel = new Panel(PanelType.SUCCESS)
-            .withTop(Icon.pencil, "Demo form");
+    PanelInterface formPanel = new Panel(PanelType.SUCCESS, Icon.pencil)
+            .withTop("Demo form");
 
-    Panel otherPanel = new Panel()
-            .withTop(Icon.filter, "Output").withBottom("...");
+    PanelInterface otherPanel = new Panel(PanelType.DEFAULT, Icon.filter)
+            .withTop("Output").withBottom("...");
 
-    Panel dummyPanel = new Panel()
+    PanelInterface dummyPanel = new Panel()
             .withTop(Icon.book, "Lorem Ipsum")
             .withContent("Dolor sit amet")
             .withStyle(PanelType.INFO);
@@ -44,12 +43,12 @@ public class ExampleGridPage extends GridPage implements PageInterface {
             .addSection(dummyPanel)
             .addSection(dummyPanel);
 
-    Panel accordionPanel = new Panel()
+    PanelInterface accordionPanel = new Panel()
             .withTop(Icon.bars, "Accordion")
             .withContent(accordion)
             .withBottom("...");
 
-    Panel tablePanel = new Panel()
+    PanelInterface tablePanel = new Panel()
             .withTop(Icon.bars, "Table Example")
             .withContent(dummyTable)
             .withBottom("...");

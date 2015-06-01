@@ -1,4 +1,4 @@
-package style;
+package backoffice.style;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="pukka3">
+    <output-path>$USER_HOME$/IdeaProjects/Artifacts/Artifacts</output-path>
+    <root id="archive" name="pukkaBootstrap.jar">
+      <element id="dir-copy" path="$PROJECT_DIR$/src/backoffice" />
+    </root>
+  </artifact>
+</component>

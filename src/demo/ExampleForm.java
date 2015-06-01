@@ -47,9 +47,9 @@ public class ExampleForm extends Form implements FormInterface {
     }
 
 
-    public CallbackMessage submitCallBack( HttpServletRequest request){
+    public callbackMessage submitCallBack( HttpServletRequest request){
 
-        return(new CallbackMessage(CallbackMessage.CallbackAction.WARNING, "TODO: No action for example implemented."));
+        return(new callbackMessage(callbackMessage.CallbackAction.WARNING, "TODO: No action for example implemented."));
     }
 
 

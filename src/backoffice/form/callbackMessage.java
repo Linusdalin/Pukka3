@@ -12,15 +12,15 @@ import backoffice.common.AlertType;
  *              message: text outcome from the callback
  *
  */
-public class CallbackMessage {
+public class callbackMessage {
 
     private final CallbackAction action;
     private final String message;
 
 
-    public enum CallbackAction {COMPLETE_ACTION, ERROR, WARNING, NO_ACTION, INFO}
+    public enum CallbackAction {COMPLETE_ACTION, ERROR, WARNING, NO_ACTION, INFO, REDIRECT}
 
-    public CallbackMessage(CallbackAction action, String message){
+    public callbackMessage(CallbackAction action, String message){
 
         this.action = action;
         this.message = message;

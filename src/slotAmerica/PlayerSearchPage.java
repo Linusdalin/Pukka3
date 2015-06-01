@@ -6,48 +6,48 @@ import backoffice.errorHandling.PukkaLogger;
 import backoffice.form.*;
 import backoffice.menu.Icon;
 import backoffice.pages.PageInterface;
-import backoffice.pages.grid.GridColumn;
-import backoffice.pages.grid.GridRow;
-import backoffice.pages.grid.Panel;
-import backoffice.pages.grid.PanelType;
+import backoffice.pages.grid.*;
 import backoffice.pages.template.GridPage;
-import backoffice.table.TableInterface;
-import style.pageComponents.PageHeader;
-
+import backoffice.style.pageComponents.PageHeader;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/*****************************************************************************
  *
- *          Campaign page
+ *          Player search page
  */
 
-public class PlayerListPage extends GridPage implements PageInterface {
+public class PlayerSearchPage extends GridPage implements PageInterface {
 
-    private static final String Name = "PlayersPage";
+    private static final String Name = "PlayerSearch";
     private static final FormInterface searchForm = new SearchPlayerForm(new Location(Name));
 
-    TableInterface table = new RewardTable();
+    // Panel to list the latest payments from the database
 
-    Panel tablePanel = new Panel()
-            .withTop(Icon.bars, "List Campaigns")
+    PanelInterface tablePanel = new Panel()
+            .withTop(Icon.bars, "Latest Payments")
             .withContent("...")
-            .withBottom("...");
+            .withBottom("");
 
-    Panel formPanel1 = new Panel(PanelType.DEFAULT)
+
+    PanelInterface formPanel1 = new Panel(PanelType.DEFAULT)
             .withTop(Icon.pencil, "Search Player");
 
+    /******************************************************************
+     *
+     *      Create the page
+     *
+     */
 
-
-    public PlayerListPage(){
-
+    public PlayerSearchPage(){
 
         super(Name, "Search Players");
 
         try{
 
-            GridRow firstRow = new GridRow(2)
+
+            GridRow mainRow = new GridRow(2)
                     .addColumn(new GridColumn(8)
 
                             .addPanel(tablePanel)
@@ -57,16 +57,12 @@ public class PlayerListPage extends GridPage implements PageInterface {
                             .addPanel(formPanel1)
                     );
 
-            setPageHeader(new PageHeader("Player Support"));
-            addRow(firstRow);
+            addRow(mainRow);
 
         } catch (BackOfficeException e) {
 
             PukkaLogger.log(e);
         }
-
-
-
 
     }
 
@@ -74,14 +70,16 @@ public class PlayerListPage extends GridPage implements PageInterface {
      *
      *          The page contains a heading and a tab pane
      *
-     * @param request
-     * @return
+     * @param request         - request for dynamically populating
+     * @return                - html
      */
 
 
     public String render(HttpServletRequest request){
 
         try{
+
+            setPageHeader(new PageHeader("Search Player "));
 
             searchForm.populateValues(request);
             formPanel1.withContent(searchForm.renderForm());
@@ -96,9 +94,16 @@ public class PlayerListPage extends GridPage implements PageInterface {
         return "Error rendering page";
 
     }
-}
 
-    class SearchPlayerForm extends Form implements FormInterface {
+
+    /***************************************************************'
+     *
+     *          Search player
+     *
+     *
+     */
+
+    static class SearchPlayerForm extends Form implements FormInterface {
 
         List<FormFieldInterface> fields = new ArrayList<FormFieldInterface>();
 
@@ -120,16 +125,21 @@ public class PlayerListPage extends GridPage implements PageInterface {
 
 
             setElements(fields);
+            setTarget(SlotAmericaBO.PlayerDetailPage);
             //setAjaxSubmit("http://localhost:3003/createReward", Action.RELOAD);
 
         }
 
 
-        public CallbackMessage submitCallBack( HttpServletRequest request){
+        public callbackMessage submitCallBack( HttpServletRequest request){
 
-            return(new CallbackMessage(CallbackMessage.CallbackAction.WARNING, "TODO: No action for form " + name +" implemented."));
+            if(request.getParameter("player") == null)
+                return(new callbackMessage(callbackMessage.CallbackAction.ERROR, "No user id given"));
+
+            return new callbackMessage(callbackMessage.CallbackAction.NO_ACTION, "");
         }
 
 
     }
+}
 

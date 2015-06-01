@@ -1,4 +1,4 @@
-package style.pageComponents;
+package backoffice.style.pageComponents;
 
 import backoffice.common.BackofficeInterface;
 

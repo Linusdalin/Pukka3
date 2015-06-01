@@ -1,7 +1,7 @@
 package backoffice.form;
 
 
-import style.dropdown.Dropdown;
+import backoffice.style.dropdown.Dropdown;
 
 /***********************************************************
  *

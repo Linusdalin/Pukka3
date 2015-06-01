@@ -24,10 +24,15 @@ public class SlotAmericaBO extends GenericBackoffice implements BackofficeInterf
 
     public static final PageInterface RewardPage = new CampaignsPage();
     public static final PageInterface AboutRewardsPage = new AboutRewardsPage();
-    public static final PageInterface PlayerListPage = new PlayerListPage();
 
-    public static final FormInterface TestForm = new ExampleForm(new Location(RewardPage.getName()));
-    public static final FormInterface SearchPlayerForm = new SearchPlayerForm(new Location(RewardPage.getName()));
+    // Support pages
+
+    public static final PageInterface PlayerDetailPage = new PlayerDetailPage();
+    public static final PageInterface PlayerSearchPage = new PlayerSearchPage();
+
+    public static final FormInterface TestForm          = new ExampleForm(new Location(RewardPage.getName()));
+    public static final FormInterface SearchPlayerForm  = new PlayerSearchPage.SearchPlayerForm (new Location(PlayerSearchPage.getName()));
+    public static final FormInterface GiveCoinsForm     = new PlayerDetailPage.GiveCoinsForm    (new Location(PlayerDetailPage.getName()));
 
 
     // Create a nav-bar with the optional functionality
@@ -54,7 +59,8 @@ public class SlotAmericaBO extends GenericBackoffice implements BackofficeInterf
 
                     new SectionContainer("Support", Icon.question, new SectionInterface[] {
 
-                            new SectionSub("Player", PlayerListPage),
+                            new SectionSub("Search", PlayerSearchPage),
+                            new SectionSub("Details", PlayerDetailPage),
 
                     }),
 
@@ -82,13 +88,14 @@ public class SlotAmericaBO extends GenericBackoffice implements BackofficeInterf
 
         addPage(AboutRewardsPage);
         addPage(RewardPage);
-        addPage(PlayerListPage);
+        addPage(PlayerSearchPage);
+        addPage(PlayerDetailPage);
 
         addForm(TestForm);
         addForm(SearchPlayerForm);
+        addForm(GiveCoinsForm);
 
         // Add tables
-
 
         setAcs(acs);
 

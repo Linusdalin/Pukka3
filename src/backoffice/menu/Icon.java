@@ -565,5 +565,10 @@ public enum Icon {
     public String render() {
         return "<i class=\"fa fa-"+className+" fa-fw\"></i>";
     }
+
+    public String render(int magnification) {
+        return "<i class=\"fa fa-"+className+" fa-"+magnification +"x\"></i>";
+    }
+
 }
 

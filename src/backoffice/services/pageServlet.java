@@ -2,12 +2,11 @@ package backoffice.services;
 
 import backoffice.errorHandling.BackOfficeException;
 import backoffice.errorHandling.PukkaLogger;
-import backoffice.form.CallbackMessage;
+import backoffice.form.callbackMessage;
 import backoffice.form.FormInterface;
 import backoffice.pages.PageInterface;
-import style.Html;
-import style.PukkaHtml;
-import style.pageComponents.BrandTitle;
+import backoffice.style.Html;
+import backoffice.style.pageComponents.BrandTitle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,7 +82,7 @@ public class pageServlet extends PukkaServlet {
 
         String action = req.getParameter("action");
 
-        CallbackMessage message = null;
+        callbackMessage message = null;
 
         if(action != null){
 
@@ -95,12 +94,23 @@ public class pageServlet extends PukkaServlet {
                 FormInterface form = backOffice.getFormByName(formName);
 
                 if(form == null){
-                    message = new CallbackMessage(CallbackMessage.CallbackAction.ERROR, "Form " + formName + " does not exist" );
+                    message = new callbackMessage(callbackMessage.CallbackAction.ERROR, "Form " + formName + " does not exist" );
                 }
                 else
                     message = form.submitCallBack(req);
 
+                // Now test redirect from the submit callback
+                if(message.getAction() == callbackMessage.CallbackAction.REDIRECT){
+
+                    resp.sendRedirect(message.getMessage());
+                    return;
+
+                }
+
+
             }
+
+
 
         }
 
@@ -120,7 +130,7 @@ public class pageServlet extends PukkaServlet {
     }
 
 
-    private String getPage(PageInterface page, HttpServletRequest req, CallbackMessage message) {
+    private String getPage(PageInterface page, HttpServletRequest req, callbackMessage message) {
 
         String thisURL = req.getRequestURI();
         StringBuffer html = new StringBuffer();
@@ -288,9 +298,12 @@ public class pageServlet extends PukkaServlet {
      * @return
      */
 
-    private String getMessageBox(CallbackMessage message) {
+    private String getMessageBox(callbackMessage message) {
 
         if(message == null)
+            return "";
+
+        if(message.getAction() == callbackMessage.CallbackAction.NO_ACTION)
             return "";
 
         return message.toAlertBox().render();

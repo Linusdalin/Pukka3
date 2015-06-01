@@ -6,13 +6,10 @@ import backoffice.errorHandling.PukkaLogger;
 import backoffice.form.FormInterface;
 import backoffice.menu.Icon;
 import backoffice.pages.PageInterface;
-import backoffice.pages.grid.GridColumn;
-import backoffice.pages.grid.GridRow;
-import backoffice.pages.grid.Panel;
-import backoffice.pages.grid.PanelType;
+import backoffice.pages.grid.*;
 import backoffice.pages.template.GridPage;
 import backoffice.table.TableInterface;
-import style.pageComponents.PageHeader;
+import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,15 +25,16 @@ public class CampaignsPage extends GridPage implements PageInterface {
     private static final FormInterface deleteForm = new DeleteRewardForm(new Location(Name));
     TableInterface table = new RewardTable();
 
-    Panel tablePanel = new Panel()
+    PanelInterface tablePanel = new Panel()
             .withTop(Icon.bars, "List Campaigns")
             .withContent(table)
             .withBottom("...");
 
-    Panel formPanel1 = new Panel(PanelType.SUCCESS)
+    PanelInterface formPanel1 = new Panel(PanelType.SUCCESS)
+
             .withTop(Icon.pencil, "Create New Campaign");
 
-    Panel formPanel2 = new Panel(PanelType.WARNING)
+    PanelInterface formPanel2 = new Panel(PanelType.WARNING)
             .withTop(Icon.pencil, "Delete Campaign");
 
 

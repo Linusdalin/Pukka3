@@ -14,6 +14,11 @@ public enum PanelType {
     WARNING("warning"),
     ERROR("danger"),
 
+    GREEN("green"),
+    YELLOW("yellow"),
+    RED("red"),
+
+
     ;
 
 

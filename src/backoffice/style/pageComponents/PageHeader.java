@@ -1,4 +1,4 @@
-package style.pageComponents;
+package backoffice.style.pageComponents;
 
 /**
  *          Top element on the page

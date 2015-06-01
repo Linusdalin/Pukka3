@@ -1,6 +1,6 @@
-package style.dropdown;
+package backoffice.style.dropdown;
 
-import style.Html;
+import backoffice.style.Html;
 import java.util.List;
 
 /**********************************************************************

@@ -2,7 +2,7 @@ package backoffice.pages.template;
 
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
-import style.pageComponents.PageHeader;
+import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
 

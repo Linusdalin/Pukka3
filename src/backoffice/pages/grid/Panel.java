@@ -14,18 +14,19 @@ import backoffice.table.TableInterface;
  *          //TODO: Add support for actions in panels (see demo page)
  *
  */
-public class Panel implements PanelInterface{
-
-    private String panelTop = null;
-    private String panelBottom = null;
-    private String mainContent = null;
+public class Panel extends GenericPanel implements PanelInterface{
 
     private Icon topIcon = null;
-    private PanelType type;
 
     public Panel(){
 
         this.type = PanelType.DEFAULT;  // If no type is set, use the default style (greyish)
+    }
+
+    public Panel(PanelType type, Icon topIcon){
+
+        this.type = type;
+        this.topIcon = topIcon;
     }
 
     public Panel(PanelType type){
@@ -34,40 +35,10 @@ public class Panel implements PanelInterface{
     }
 
 
-    public Panel withTop(String html){
 
-        return withTop(null, html);
-    }
+    public PanelInterface withIcon(Icon icon) {
 
-    public Panel withTop(Icon icon, String html){
-
-        this.panelTop = html;
         this.topIcon = icon;
-        return this;
-    }
-
-
-    public Panel withBottom(String html){
-
-        this.panelBottom = html;
-        return this;
-    }
-
-    public Panel withContent(String html){
-
-        this.mainContent = html;
-        return this;
-    }
-
-    public Panel withContent(Accordion accordion) {
-
-        this.mainContent = accordion.render();
-        return this;
-    }
-
-    public Panel withContent(TableInterface table) {
-
-        this.mainContent = table.render();
         return this;
     }
 
@@ -137,12 +108,5 @@ public class Panel implements PanelInterface{
     }
 
 
-
-    public Panel withStyle(PanelType type) {
-
-        this.type = type;
-        return this;
-
-    }
 
 }

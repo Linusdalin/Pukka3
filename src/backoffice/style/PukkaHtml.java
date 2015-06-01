@@ -1,12 +1,12 @@
-package style;
+package backoffice.style;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Linus
- * Date: 2015-03-21
- * Time: 20:57
- * To change this template use File | Settings | File Templates.
+/***********************************************************************'''
+ *
+ *      Common HTML components fro the pukka backoffice
+ *
+ *
  */
+
 public class PukkaHtml extends Html {
 
 

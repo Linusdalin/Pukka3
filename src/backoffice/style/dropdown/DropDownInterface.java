@@ -1,4 +1,4 @@
-package style.dropdown;
+package backoffice.style.dropdown;
 
 /**
  * Created with IntelliJ IDEA.
