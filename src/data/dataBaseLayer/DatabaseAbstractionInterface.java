@@ -19,6 +19,7 @@ import java.util.List;
 
 public interface DatabaseAbstractionInterface {
 
+
     // Create a key from an abstract key object (e.g. string or int)
     DBKeyInterface createKey(Object data);
 

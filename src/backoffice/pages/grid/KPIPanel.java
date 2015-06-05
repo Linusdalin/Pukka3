@@ -22,7 +22,7 @@ public class KPIPanel extends GenericPanel implements PanelInterface{
     private PanelType type;
     private String text = "&nbsp;";
     private String readMore = "View Details";
-    private int value = 0;
+    private String value = null;
     private InternalLink link = new InternalLink("#");
     private boolean hasBreakDownLink = false;
 
@@ -40,9 +40,16 @@ public class KPIPanel extends GenericPanel implements PanelInterface{
 
     public KPIPanel withValue(int value){
 
-        this.value = value;
+        this.value = String.valueOf(value);
         return this;
     }
+
+    public KPIPanel withValue(String text){
+
+        this.value = text;
+        return this;
+    }
+
 
     public KPIPanel withText(String text){
 

@@ -47,6 +47,7 @@ abstract public class GenericBackoffice implements BackofficeInterface{
         pages.add(new Empty404Page());
         acs = new OpenDoorACS();
 
+        homePage = new Empty404Page();
 
     }
 
@@ -66,7 +67,7 @@ abstract public class GenericBackoffice implements BackofficeInterface{
     public PageInterface getPageByName(String pageName) {
 
         if(pageName == null)
-            return getPageByName("404");
+            return homePage;
 
         for (PageInterface page : pages) {
              if(page.getName().equals(pageName))

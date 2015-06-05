@@ -38,8 +38,8 @@ public class PlayerDetailPage extends GridPage implements PageInterface {
             .withBottom("");
 
 
-    PanelInterface totalPayment = new KPIPanel(Icon.usd)
-            .withValue(0)
+    KPIPanel totalPayment = new KPIPanel(Icon.usd)
+            .withValue(-1)
             .withText("Total Spend")
             .withLink("More...", new InternalLink("http://www.aftonbladet.se"));
 
@@ -50,7 +50,10 @@ public class PlayerDetailPage extends GridPage implements PageInterface {
             .withStyle(PanelType.SUCCESS);
 
     DynamicLoader playerInfo = new DynamicLoader()
-            .withSubstitution("balance", "coinBalance");
+            .withSubstitution("playerDetails.balance",              "coinBalance")
+            .withSubstitution("playerDetails.gender",               "playerGender")
+            .withSubstitution("playerDetails.name",                 "playerName")
+            .withSubstitution("playerDetails.paymentsTotal",        "paymentsTotal");
 
     // - first name, last name, country,  email, coin balance, registration date, last activity, total spend, payment count, total playing days, total sessions, campaign code, group classification
 
@@ -115,20 +118,18 @@ public class PlayerDetailPage extends GridPage implements PageInterface {
 
         try{
 
-            String firstName = "XXX";
-            String lastName = "YYY";
             String playerId = request.getParameter("player");
 
-            setPageHeader(new PageHeader("Player -" + firstName + " " + lastName  ));
+            setPageHeader(new PageHeader("Player -" + playerInfo.getSpan( 2 )  ));
 
-            detailsPanel.withContent("<p>Facebook id :" + playerId + "</p> <p>Email : linus@dev.null</p> <p>Coins: "+ playerInfo.getSpan( 0 )+"</p>");
+            detailsPanel.withContent("<p>Facebook id :" + playerId + "</p> <p>Gender : "+ playerInfo.getSpan( 1 )+"</p> <p>Coins: "+ playerInfo.getSpan( 0 )+"</p>");
 
             // Set the player id here
             giveCoinsForm.populateValue(1, playerId);
             formPanel1.withContent(giveCoinsForm.renderForm());
 
-            playerInfo.setURL("https://test.slot-america.com/getBalance?playerId=" + playerId);
-
+            playerInfo.setURL("https://test.slot-america.com/getPlayerDetails?playerId=" + playerId);
+           totalPayment.withValue(playerInfo.getSpan( 3 ));
 
             return super.render(request);
 

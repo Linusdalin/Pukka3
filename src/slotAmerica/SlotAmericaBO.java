@@ -1,6 +1,7 @@
 package slotAmerica;
 
 import backoffice.acs.ACSInterface;
+import backoffice.acs.ACSUser;
 import backoffice.acs.GoogleACS;
 import backoffice.common.BackofficeInterface;
 import backoffice.common.GenericBackoffice;
@@ -70,13 +71,19 @@ public class SlotAmericaBO extends GenericBackoffice implements BackofficeInterf
 
     // Define which access control system we shall use
 
-    private static final ACSInterface acs = new GoogleACS();
+    private static final ACSUser[] AllowedUsers = new ACSUser[] {
+            new ACSUser("linus", "linusdalin@gmail.com"),
+            new ACSUser("patrik", "patrik.roos@slot-america.com"),
+    };
+
+
+    private static final ACSInterface acs = new GoogleACS(AllowedUsers);
 
     /***********************************************************
      *
      *          Create the backOffice with the
      *          defined configurations
-     *
+     *                                          407
      */
 
     public SlotAmericaBO(){

@@ -16,14 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 public class GoogleACS implements ACSInterface {
     
     private static final String Name = "Google ACS";
-    private static final ACSUser DummyUser = new ACSUser("dummy", "linus.dalin@itclarifies.com");
+
+    private final ACSUser[] allowedUsers;
 
     // Google user service
     private static UserService userService = UserServiceFactory.getUserService();
     private ACSUser activeUser = null;
 
-    public GoogleACS(){
+    public GoogleACS(ACSUser[] allowedUsers){
 
+        this.allowedUsers = allowedUsers;
     }
 
     /************************************************************''''
@@ -61,18 +63,20 @@ public class GoogleACS implements ACSInterface {
             return false;
         }
 
-        //TODO: Not implemented list of users. Only dummy user
+        for (ACSUser allowedUser : allowedUsers) {
 
-        if(!DummyUser.email.equals(request.getUserPrincipal().getName())){
+            if(allowedUser.email.equals(request.getUserPrincipal().getName())){
 
-            return false;
+                // Access granted. Create a new user with email as name (Typical Google login account)
 
+                activeUser = new ACSUser(request.getUserPrincipal().getName(), request.getUserPrincipal().getName());
+                return true;
+            }
         }
 
-        // Access granted. Create a new user with email as name (Typical Google login account)
 
-        activeUser = new ACSUser(request.getUserPrincipal().getName(), request.getUserPrincipal().getName());
-        return true;
+        return false;
+
     }
 
     /****************************************************************

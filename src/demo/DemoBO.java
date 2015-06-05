@@ -1,5 +1,6 @@
 package demo;
 
+import backoffice.acs.ACSUser;
 import backoffice.common.BackofficeInterface;
 import backoffice.common.GenericBackoffice;
 import backoffice.acs.ACSInterface;
@@ -210,7 +211,12 @@ public class DemoBO extends GenericBackoffice implements BackofficeInterface {
 
     // Define which access control system we shall use
 
-    private static final ACSInterface acs = new GoogleACS();
+    private static final ACSUser[] AllowedUsers = new ACSUser[] {
+            new ACSUser("linus", "linus.dalin@itclarifies.com"),
+    };
+
+
+    private static final ACSInterface acs = new GoogleACS(AllowedUsers);
 
     /***********************************************************
      *

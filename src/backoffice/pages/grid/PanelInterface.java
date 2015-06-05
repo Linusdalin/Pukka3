@@ -29,4 +29,5 @@ public interface PanelInterface {
     PanelInterface withBottom(String s);
 
     PanelInterface withTop(Icon icon, String s);
+
 }
