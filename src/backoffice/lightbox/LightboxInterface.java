@@ -1,6 +1,8 @@
 package backoffice.lightbox;
 
 import backoffice.common.LinkType;
+import backoffice.style.HtmlBlock;
+
 import javax.servlet.http.HttpServletRequest;
 
 /*****************************************************************************
@@ -39,19 +41,19 @@ public interface LightboxInterface {
     // Render the hidden anchor div
     // This is standard implementation.
 
-    String renderAnchor();
+    HtmlBlock renderAnchor();
 
 
     // Render the link (button or hyperlink)
     // This is standard implementation.
 
-    String renderLink(LinkType type, String anchorText);
+    HtmlBlock renderLink(LinkType type, String anchorText);
 
 
     // Light box content
     // This method should be overridden in all light boxes
 
-    String renderContent(HttpServletRequest request);
+    HtmlBlock renderContent(HttpServletRequest request);
 
 
     // Get the name

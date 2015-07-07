@@ -10,6 +10,8 @@ import backoffice.modules.dynamicVariable.DynamicLoader;
 import backoffice.pages.PageInterface;
 import backoffice.pages.grid.*;
 import backoffice.pages.template.GridPage;
+import backoffice.style.Html;
+import backoffice.style.HtmlBlock;
 import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,12 +31,11 @@ public class PlayerDetailPage extends GridPage implements PageInterface {
 
     PanelInterface detailsPanel = new Panel()
             .withTop(Icon.bars, "Player Details")
-            .withContent("");
+            .withContent();
 
 
     PanelInterface tablePanel = new Panel()
             .withTop(Icon.bars, "Payment History")
-            .withContent("...")
             .withBottom("");
 
 
@@ -114,31 +115,50 @@ public class PlayerDetailPage extends GridPage implements PageInterface {
      */
 
 
-    public String render(HttpServletRequest request){
+    public HtmlBlock toHtml(HttpServletRequest request){
 
         try{
+
+            String serverURL = ServerManager.getServerURL();      // Get the server for the correct environment
 
             String playerId = request.getParameter("player");
 
             setPageHeader(new PageHeader("Player -" + playerInfo.getSpan( 2 )  ));
 
-            detailsPanel.withContent("<p>Facebook id :" + playerId + "</p> <p>Gender : "+ playerInfo.getSpan( 1 )+"</p> <p>Coins: "+ playerInfo.getSpan( 0 )+"</p>");
+            detailsPanel.withContent(new HtmlBlock(Html.paragraph("Facebook id :" + playerId + "</p> <p>Gender : "+ playerInfo.getSpan( 1 )+"</p> <p>Coins: "+ playerInfo.getSpan( 0 )+"")));
 
             // Set the player id here
             giveCoinsForm.populateValue(1, playerId);
             formPanel1.withContent(giveCoinsForm.renderForm());
 
-            playerInfo.setURL("https://test.slot-america.com/getPlayerDetails?playerId=" + playerId);
-           totalPayment.withValue(playerInfo.getSpan( 3 ));
+            playerInfo.setURL(serverURL + "/getPlayerDetails?playerId=" + playerId);
+            totalPayment.withValue(playerInfo.getSpan( 3 ));
 
-            return super.render(request);
+
+            // Add the payments data
+            tablePanel.withContent(getPayments(playerId));
+
+            return super.toHtml(request);
 
         } catch (BackOfficeException e) {
 
             PukkaLogger.log( e );
         }
 
-        return "Error rendering page";
+        return new HtmlBlock("Error rendering page");
+
+    }
+
+    private HtmlBlock getPayments(String playerId) {
+
+        HtmlBlock tableContent = new HtmlBlock();
+
+        PaymentTable paymentTable = new PaymentTable("sessions.playerId = '" + playerId + "'"  , 99);
+
+        tableContent.append(paymentTable.render());
+
+        return tableContent;
+
 
     }
 
@@ -152,6 +172,7 @@ public class PlayerDetailPage extends GridPage implements PageInterface {
     static class GiveCoinsForm extends Form implements FormInterface {
 
         List<FormFieldInterface> fields = new ArrayList<FormFieldInterface>();
+        String serverURL = ServerManager.getServerURL();      // Get the server for the correct environment
 
 
         public GiveCoinsForm(Location location){
@@ -171,7 +192,7 @@ public class PlayerDetailPage extends GridPage implements PageInterface {
 
             setElements(fields);
             setMethodGET();
-            setAjaxSubmit("https://test.slot-america.com/addCoins?auth=c7849722a97707d96ceb356d2417a4bf", Action.RELOAD);
+            setAjaxSubmit(serverURL + "/addCoins?auth=c7849722a97707d96ceb356d2417a4bf", Action.RELOAD);
 
         }
 

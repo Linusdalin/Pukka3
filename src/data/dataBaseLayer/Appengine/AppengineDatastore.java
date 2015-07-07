@@ -93,8 +93,7 @@ public class AppengineDatastore implements DatabaseAbstractionInterface {
 
            //PukkaLogger.log(PukkaLogger.Level.INFO, "Using Query: " + q.toString());
 
-           DBResultSetInterface result = new AppEngineResultSet(pq.asIterable(), tableName, useReferences);
-           return result;
+           return  new AppEngineResultSet(pq.asIterable(), tableName, useReferences);
 
        }catch(DatastoreNeedIndexException e){
 

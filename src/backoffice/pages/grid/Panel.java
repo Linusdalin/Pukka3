@@ -1,6 +1,7 @@
 package backoffice.pages.grid;
 
 import backoffice.menu.Icon;
+import backoffice.style.HtmlBlock;
 import backoffice.table.Table;
 import backoffice.table.TableInterface;
 
@@ -43,9 +44,9 @@ public class Panel extends GenericPanel implements PanelInterface{
     }
 
 
-    public String render(){
+    public HtmlBlock toHtml(){
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
         html.append("   <div class=\"panel panel-"+type.getClassName()+"\">");
 
         html.append("       <div class=\"panel-heading\">");
@@ -67,7 +68,7 @@ public class Panel extends GenericPanel implements PanelInterface{
         }
 
         html.append("   </div>   <!-- Panel  -->\n");
-        return html.toString();
+        return html;
     }
 
     /********************************************************************************'
@@ -82,7 +83,7 @@ public class Panel extends GenericPanel implements PanelInterface{
 
     public String renderInAccordion(int sectionNo, boolean open){
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
         html.append("   <div class=\"panel panel-"+type.getClassName()+"\">\n");
 
         html.append("       <div class=\"panel-heading\">\n");

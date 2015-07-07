@@ -7,6 +7,8 @@ import backoffice.menu.Icon;
 import backoffice.pages.grid.*;
 import backoffice.pages.PageInterface;
 import backoffice.pages.template.GridPage;
+import backoffice.style.HtmlBlock;
+import backoffice.table.SQLTable;
 import backoffice.table.Table;
 import backoffice.style.Html;
 import backoffice.style.pageComponents.PageHeader;
@@ -34,10 +36,10 @@ public class ExampleGridPage extends GridPage implements PageInterface {
 
     PanelInterface dummyPanel = new Panel()
             .withTop(Icon.book, "Lorem Ipsum")
-            .withContent("Dolor sit amet")
+            .withContent(new HtmlBlock("Dolor sit amet"))
             .withStyle(PanelType.INFO);
 
-    Table dummyTable = new Table();
+    Table dummyTable = new SQLTable();
 
     Accordion accordion = new Accordion()
             .addSection(dummyPanel)
@@ -93,7 +95,7 @@ public class ExampleGridPage extends GridPage implements PageInterface {
      */
 
     @Override
-    public String render(HttpServletRequest request){
+    public HtmlBlock toHtml(HttpServletRequest request){
 
         try {
 
@@ -105,30 +107,30 @@ public class ExampleGridPage extends GridPage implements PageInterface {
 
             if(request.getParameter("text1") == null){
 
-                otherPanel.withContent(Html.paragraph("Output area"));
+                otherPanel.withContent(new HtmlBlock(Html.paragraph("Output area")));
                 otherPanel.withStyle(PanelType.DEFAULT);
             }
             else if(request.getParameter("text1").equals("")){
 
-                otherPanel.withContent(Html.paragraph("No parameter value"));
+                otherPanel.withContent(new HtmlBlock(Html.paragraph("No parameter value")));
                 otherPanel.withStyle(PanelType.ERROR);
             }
             else{
 
-                    otherPanel.withContent(Html.paragraph("The parameter value is: \"" + request.getParameter("text1") + "\""));
+                    otherPanel.withContent(new HtmlBlock(Html.paragraph("The parameter value is: \"" + request.getParameter("text1") + "\"")));
                     otherPanel.withStyle(PanelType.SUCCESS);
 
             }
 
 
-            return super.render(request);
+            return super.toHtml(request);
 
         } catch (BackOfficeException e) {
 
             PukkaLogger.log( e );
         }
 
-        return "Error rendering page";
+        return new HtmlBlock(Html.paragraph("Error rendering page"));
 
 
 
@@ -137,9 +139,9 @@ public class ExampleGridPage extends GridPage implements PageInterface {
     //TODO: Recursively go through all components and render the scripts that components require
 
     @Override
-    public String renderDataScripts(){
+    public HtmlBlock renderDataScripts(){
 
-        return  "            <script src=\"adminCommon/pukka.js\"></script>\n" +
+        return  new HtmlBlock("            <script src=\"adminCommon/pukka.js\"></script>\n" +
                 "    <!-- Page-Level Demo Scripts - Tables - Use for reference -->\n" +
                         "    <script>\n" +
                         "    $(document).ready(function() {\n" +
@@ -148,7 +150,7 @@ public class ExampleGridPage extends GridPage implements PageInterface {
                         "        });\n" +
                         "    });\n" +
                         "    </script>\n" +
-                "\n\n";
+                "\n\n");
 
     }
 

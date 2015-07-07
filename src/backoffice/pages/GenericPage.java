@@ -2,6 +2,7 @@ package backoffice.pages;
 
 import backoffice.common.Location;
 import backoffice.errorHandling.BackOfficeException;
+import backoffice.style.HtmlBlock;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,7 +29,7 @@ public class GenericPage implements PageInterface {
      * @return
      */
 
-    public String render(HttpServletRequest request) throws BackOfficeException{
+    public HtmlBlock toHtml(HttpServletRequest request) throws BackOfficeException{
 
         throw new BackOfficeException(BackOfficeException.Type.CONFIGURATION, "No renderer defined for page " + name);
 
@@ -53,9 +54,11 @@ public class GenericPage implements PageInterface {
         return name;
     }
 
-    public String renderDataScripts(){
+    public HtmlBlock renderDataScripts(){
 
-        return  "            <script src=\"adminCommon/pukka.js\"></script>\n";
+        HtmlBlock html = new HtmlBlock();
+        html.append("            <script src=\"adminCommon/pukka.js\"></script>\n");
+        return html;
 
     }
 

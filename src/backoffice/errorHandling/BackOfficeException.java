@@ -14,9 +14,10 @@ public class BackOfficeException extends Exception {
 
     public enum Type {
 
-        NOT_IMPLEMENTED,                // Call of not implemented method
+        NOT_IMPLEMENTED,        // Call of not implemented method
         GENERIC,                // Generic error
         CONFIGURATION,          // Expected configuration is missing
+        SYSTEM,                 // Internal system issues or connectivity
     }
 
     public BackOfficeException(String message){

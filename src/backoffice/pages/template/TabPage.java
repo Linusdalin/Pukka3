@@ -2,6 +2,7 @@ package backoffice.pages.template;
 
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
+import backoffice.style.HtmlBlock;
 import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +22,9 @@ public class TabPage extends GenericPage implements PageInterface {
     }
 
 
-    public String render(HttpServletRequest request){
+    public HtmlBlock toHtml(HttpServletRequest request){
 
-        return  new PageHeader("404 - page missing").render();
+        return  new PageHeader("404 - page missing").toHtml();
 
     }
 

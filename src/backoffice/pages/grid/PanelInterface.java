@@ -2,6 +2,7 @@ package backoffice.pages.grid;
 
 
 import backoffice.menu.Icon;
+import backoffice.style.HtmlBlock;
 import backoffice.table.TableInterface;
 
 /*************************************************************************
@@ -16,12 +17,13 @@ import backoffice.table.TableInterface;
 
 public interface PanelInterface {
 
-    public String render();
+    public HtmlBlock toHtml();
     public String renderInAccordion(int sectionNo, boolean open);
 
     // Dynamically set style and content
 
-    PanelInterface withContent(String s);
+    PanelInterface withContent( );
+    PanelInterface withContent(HtmlBlock html);
     PanelInterface withContent(Accordion accordion);
     PanelInterface withContent(TableInterface table);
 

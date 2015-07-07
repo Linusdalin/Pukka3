@@ -1,6 +1,7 @@
 package backoffice.lightbox;
 
 import backoffice.common.LinkType;
+import backoffice.style.HtmlBlock;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,16 +34,17 @@ abstract public class GenericLightBox {
      * @return
      */
 
-    public String renderAnchor(){
+    public HtmlBlock renderAnchor(){
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
+
 
         html.append("                            <!-- Modal -->\n");
         html.append("                            <div class=\"modal fade\" id=\"pukkaModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\" ></div>\n");
         html.append("                            <!-- /.modal -->\n");
 
 
-        return html.toString();
+        return html;
     }
 
     /***************************************************************************''
@@ -58,21 +60,21 @@ abstract public class GenericLightBox {
      */
 
 
-    public String renderLink(LinkType type, String anchorText){
+    public HtmlBlock renderLink(LinkType type, String anchorText){
 
         switch (type) {
 
 
             case BUTTON:
-                return  "<button class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" id=\"modal1\" data-target=\"#pukkaModal\" href=\"/LightBox?"+ PARAMETER_NAME+"="+name+"\">"+anchorText+"</button>";
+                return  new HtmlBlock("<button class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" id=\"modal1\" data-target=\"#pukkaModal\" href=\"/LightBox?"+ PARAMETER_NAME+"="+name+"\">"+anchorText+"</button>");
 
             case LINK:
-                return "<a href=\"/LightBox?"+PARAMETER_NAME+"="+ name+"\" data-toggle=\"modal\" data-target=\"#pukkaModal\">"+ anchorText+"</a>";
+                return new HtmlBlock("<a href=\"/LightBox?"+PARAMETER_NAME+"="+ name+"\" data-toggle=\"modal\" data-target=\"#pukkaModal\">"+ anchorText+"</a>");
         }
 
         //TODO: Throw exception
 
-        return "<!-- error rendering link for lightbox -->";
+        return new HtmlBlock("<!-- error rendering link for lightbox -->");
     }
 
 

@@ -1,5 +1,7 @@
 package backoffice.menu;
 
+import backoffice.style.HtmlBlock;
+
 /**********************************************************
  *
  *          icons
@@ -562,12 +564,12 @@ public enum Icon {
     }
 
 
-    public String render() {
-        return "<i class=\"fa fa-"+className+" fa-fw\"></i>";
+    public HtmlBlock render() {
+        return new HtmlBlock( "<i class=\"fa fa-"+className+" fa-fw\"></i>");
     }
 
-    public String render(int magnification) {
-        return "<i class=\"fa fa-"+className+" fa-"+magnification +"x\"></i>";
+    public HtmlBlock render(int magnification) {
+        return new HtmlBlock("<i class=\"fa fa-"+className+" fa-"+magnification +"x\"></i>");
     }
 
 }

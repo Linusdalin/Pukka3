@@ -1,5 +1,7 @@
 package backoffice.modules.messages;
 
+import backoffice.style.HtmlBlock;
+
 /**
  *
  *          Not implemented. Rendering a default placeholder
@@ -12,9 +14,9 @@ public class MessageManager {
 
     }
 
-    public String render(){
+    public HtmlBlock render(){
 
-        return
+        return new HtmlBlock(
                         "                <li class=\"dropdown\">\n" +
                         "                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">\n" +
                         "                        <i class=\"fa fa-envelope fa-fw\"></i>  <i class=\"fa fa-caret-down\"></i>\n" +
@@ -65,7 +67,7 @@ public class MessageManager {
                         "                    </ul>\n" +
                         "                    <!-- /.dropdown-messages -->\n" +
                         "                </li>\n" +
-                        "                <!-- /.dropdown -->\n";
+                        "                <!-- /.dropdown -->\n");
 
     }
 }

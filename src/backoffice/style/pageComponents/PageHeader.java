@@ -1,5 +1,7 @@
 package backoffice.style.pageComponents;
 
+import backoffice.style.HtmlBlock;
+
 /**
  *          Top element on the page
  *
@@ -15,15 +17,15 @@ public class PageHeader {
         this.heading = heading;
     }
 
-    public String render(){
+    public HtmlBlock toHtml(){
 
-        return
+        return new HtmlBlock(
         "            <div class=\"row\">\n" +
         "                <div class=\"col-lg-"+ColumnWidth+"\">\n" +
         "                    <h1 class=\"page-header\">"+ heading +"</h1>\n" +
         "                </div>\n" +
         "                <!-- /.col-lg-"+ColumnWidth+" -->\n" +
-        "            </div>\n";
+        "            </div>\n");
 
 
     }

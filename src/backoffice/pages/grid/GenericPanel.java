@@ -1,6 +1,10 @@
 package backoffice.pages.grid;
 
+import backoffice.errorHandling.BackOfficeException;
+import backoffice.errorHandling.PukkaLogger;
 import backoffice.menu.Icon;
+import backoffice.style.Html;
+import backoffice.style.HtmlBlock;
 import backoffice.table.TableInterface;
 
 /**
@@ -55,21 +59,43 @@ public abstract class GenericPanel implements PanelInterface{
         return this;
     }
 
+    @Deprecated
     public PanelInterface withContent(String html){
 
         this.mainContent = html;
         return this;
     }
 
+    public PanelInterface withContent(HtmlBlock html){
+
+        this.mainContent = html.toString();
+        return this;
+    }
+
+
+    public PanelInterface withContent(){
+
+        this.mainContent = "";
+        return this;
+    }
+
     public PanelInterface withContent(Accordion accordion) {
 
-        this.mainContent = accordion.render();
+        this.mainContent = accordion.toHtml().render();
         return this;
     }
 
     public PanelInterface withContent(TableInterface table) {
 
-        this.mainContent = table.render();
+        try {
+
+            this.mainContent = table.toHtml().render();
+        } catch (BackOfficeException e) {
+
+            PukkaLogger.log( e );
+            this.mainContent = Html.paragraph("Error generating table");
+        }
+
         return this;
     }
 

@@ -1,5 +1,7 @@
 package backoffice.table;
 
+import backoffice.style.HtmlBlock;
+
 /***************************************************************************'''
  *
  *
@@ -7,7 +9,7 @@ package backoffice.table;
  *
  *
  */
-public class JSONTable extends DataTable implements TableInterface {
+public class JSONTable extends Table implements TableInterface {
 
     private String source;
     String[] columnNames;
@@ -29,10 +31,10 @@ public class JSONTable extends DataTable implements TableInterface {
     }
 
 
-    public String render() {
+    public HtmlBlock toHtml() {
 
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
 
         html.append(
                         "               <div class=\"dataTable_wrapper\">\n" +
@@ -66,8 +68,9 @@ public class JSONTable extends DataTable implements TableInterface {
                         "    </script>\n" +
                         "\n\n");
 
-        return html.toString();
+        return html;
     }
+
 
 
     public String renderStatic(){

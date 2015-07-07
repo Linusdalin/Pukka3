@@ -6,6 +6,7 @@ import backoffice.form.callbackMessage;
 import backoffice.form.FormInterface;
 import backoffice.pages.PageInterface;
 import backoffice.style.Html;
+import backoffice.style.HtmlBlock;
 import backoffice.style.pageComponents.BrandTitle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -136,7 +137,7 @@ public class pageServlet extends PukkaServlet {
     private String getPage(PageInterface page, HttpServletRequest req, callbackMessage message) {
 
         String thisURL = req.getRequestURI();
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
 
         if(message != null)
             System.out.println("Callback Message: " + message.toString());
@@ -241,9 +242,8 @@ public class pageServlet extends PukkaServlet {
                 "        <div id=\"page-wrapper\">\n");
 
         try{
-            html.append(
-                getMessageBox(message) +
-                page.render(req));
+            html.append( getMessageBox(message));
+            html.append( page.toHtml(req));
 
         }catch(BackOfficeException e){
 
@@ -301,13 +301,13 @@ public class pageServlet extends PukkaServlet {
      * @return
      */
 
-    private String getMessageBox(callbackMessage message) {
+    private HtmlBlock getMessageBox(callbackMessage message) {
 
         if(message == null)
-            return "";
+            return new HtmlBlock("");
 
         if(message.getAction() == callbackMessage.CallbackAction.NO_ACTION)
-            return "";
+            return new HtmlBlock("");
 
         return message.toAlertBox().render();
 

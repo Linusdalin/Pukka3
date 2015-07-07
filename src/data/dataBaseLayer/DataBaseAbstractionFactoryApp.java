@@ -2,8 +2,6 @@ package data.dataBaseLayer;
 
 import data.dataBaseLayer.Appengine.AppEngineEnvironment;
 import data.dataBaseLayer.Appengine.AppengineDatastore;
-import data.dataBaseLayer.SQLData.SQLDatastore;
-import data.dataBaseLayer.SQLData.SQLEnvironment;
 import dataModel.databaseLayer.AbstractKey;
 import dataModel.databaseLayer.DBKeyInterface;
 
@@ -17,10 +15,10 @@ import dataModel.databaseLayer.DBKeyInterface;
  *
  */
 
-public class DataBaseAbstractionFactory {
+public class DataBaseAbstractionFactoryApp {
 
-    private static DatabaseAbstractionInterface database = new SQLDatastore();
-    private static EnvironmentAbstractionInterface environment = new SQLEnvironment();
+    private static DatabaseAbstractionInterface database = new AppengineDatastore();
+    private static EnvironmentAbstractionInterface environment = new AppEngineEnvironment();
 
     public DatabaseAbstractionInterface getDatabase(){
 

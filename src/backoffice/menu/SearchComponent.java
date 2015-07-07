@@ -1,5 +1,7 @@
 package backoffice.menu;
 
+import backoffice.style.HtmlBlock;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Linus
@@ -10,11 +12,11 @@ package backoffice.menu;
 public class SearchComponent {
 
 
-    public String render(){
+    public HtmlBlock render(){
 
 
 
-        return(         "                        <li class=\"sidebar-search\">\n" +
+        return new HtmlBlock(         "                        <li class=\"sidebar-search\">\n" +
                         "                            <div class=\"input-group custom-search-form\">\n" +
                         "                                <input type=\"text\" class=\"form-control\" placeholder=\"Search...\">\n" +
                         "                                <span class=\"input-group-btn\">\n" +

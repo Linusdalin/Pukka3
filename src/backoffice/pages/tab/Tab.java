@@ -44,7 +44,7 @@ public class Tab {
         try {
             return          "                                <div class=\"tab-pane "+(isActive ? "in active " : "" ) + "fade\" id=\""+name+"\">\n" +
 
-                                page.render(request) +
+                                page.toHtml(request) +
                                 page.renderDataScripts() +
                             "                                </div>\n";
         } catch (BackOfficeException e) {

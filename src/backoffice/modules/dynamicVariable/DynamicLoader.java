@@ -1,6 +1,7 @@
 package backoffice.modules.dynamicVariable;
 
 import backoffice.errorHandling.BackOfficeException;
+import backoffice.style.HtmlBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,12 +81,12 @@ public class DynamicLoader {
      * @throws BackOfficeException
      */
 
-    public String getScript() throws BackOfficeException{
+    public HtmlBlock getScript() throws BackOfficeException{
 
         if(url == null)
             throw new BackOfficeException(BackOfficeException.Type.CONFIGURATION, "No URL set for dynamic loader");
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
 
         html.append("        <!-- load script for DynamicLoader(" + url + ") -->\n\n" +
                 "<script>" +
@@ -106,7 +107,7 @@ public class DynamicLoader {
                 "});\n" +
                 " </script>\n");
 
-        return html.toString();
+        return html;
     }
 
     public String getSpan(int fieldNo) {

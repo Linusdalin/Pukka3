@@ -2,6 +2,7 @@ package demo;
 
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
+import backoffice.style.HtmlBlock;
 import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,11 +31,13 @@ public class DemoPage extends GenericPage implements PageInterface {
      * @return    - the demo content
      */
 
-    public String render(HttpServletRequest request){
+    public HtmlBlock toHtml(HttpServletRequest request){
 
-        return
+        HtmlBlock html = new HtmlBlock();
 
-                new PageHeader(getTitle()).render() +
+        html.append(new PageHeader(getTitle()).toHtml());
+
+        html.append(
 
                 "            <!-- /.row -->\n" +
                 "            <div class=\"row\">\n" +
@@ -568,9 +571,10 @@ public class DemoPage extends GenericPage implements PageInterface {
                 "                </div>\n" +
                 "                <!-- /.col-lg-4 -->\n" +
                 "            </div>\n" +
-                "            <!-- /.row -->\n";
+                "            <!-- /.row -->\n");
 
 
+        return html;
     }
 
 
@@ -585,9 +589,9 @@ public class DemoPage extends GenericPage implements PageInterface {
      */
 
     @Override
-    public String renderDataScripts(){
+    public HtmlBlock renderDataScripts(){
 
-        return  "            <script src=\"adminCommon/js/morris-data.js\"></script>\n";
+        return  new HtmlBlock("            <script src=\"adminCommon/js/morris-data.js\"></script>\n");
 
     }
 

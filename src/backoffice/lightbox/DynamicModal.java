@@ -1,5 +1,8 @@
 package backoffice.lightbox;
 
+import backoffice.style.Html;
+import backoffice.style.HtmlBlock;
+
 import javax.servlet.http.HttpServletRequest;
 
 /*************************************************************************
@@ -22,9 +25,9 @@ public class DynamicModal extends GenericLightBox implements LightboxInterface {
 
 
 
-    public String renderContent(HttpServletRequest request){
+    public HtmlBlock renderContent(HttpServletRequest request){
 
-        return "<p>This is the content</p>";
+        return  new HtmlBlock(Html.paragraph("This is the content"));
 
     }
 

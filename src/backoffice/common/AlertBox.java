@@ -1,5 +1,7 @@
 package backoffice.common;
 
+import backoffice.style.HtmlBlock;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Linus
@@ -18,11 +20,12 @@ public class AlertBox {
         this.message = message;
     }
 
-    public String render(){
+    public HtmlBlock render(){
 
-        return "                            <div class=\"alert alert-"+type.getName()+" alert-dismissable\">\n" +
+        return new HtmlBlock(
+                "                            <div class=\"alert alert-"+type.getName()+" alert-dismissable\">\n" +
                 "                                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\n" +
                 "                                "+ message+"\n" +
-                "                            </div>\n";
+                "                            </div>\n");
     }
 }

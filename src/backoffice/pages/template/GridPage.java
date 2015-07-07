@@ -5,6 +5,7 @@ import backoffice.modules.dynamicVariable.DynamicLoader;
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
 import backoffice.pages.grid.GridRow;
+import backoffice.style.HtmlBlock;
 import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,12 +64,12 @@ abstract public class GridPage extends GenericPage implements PageInterface {
      * @return
      */
 
-    public String render(HttpServletRequest request) throws BackOfficeException{
+    public HtmlBlock toHtml(HttpServletRequest request) throws BackOfficeException{
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
 
         if(pageHeader != null)
-            html.append(pageHeader.render());
+            html.append(pageHeader.toHtml());
 
         for (GridRow row : rows) {
 
@@ -80,9 +81,7 @@ abstract public class GridPage extends GenericPage implements PageInterface {
             html.append(loader.getScript());
         }
 
-
-        return html.toString();
-
+        return html;
 
     }
 

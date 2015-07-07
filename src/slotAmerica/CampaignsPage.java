@@ -8,6 +8,7 @@ import backoffice.menu.Icon;
 import backoffice.pages.PageInterface;
 import backoffice.pages.grid.*;
 import backoffice.pages.template.GridPage;
+import backoffice.style.HtmlBlock;
 import backoffice.table.TableInterface;
 import backoffice.style.pageComponents.PageHeader;
 
@@ -78,7 +79,7 @@ public class CampaignsPage extends GridPage implements PageInterface {
      */
 
 
-    public String render(HttpServletRequest request){
+    public HtmlBlock toHtml(HttpServletRequest request){
 
         try{
 
@@ -86,14 +87,14 @@ public class CampaignsPage extends GridPage implements PageInterface {
             formPanel1.withContent(createForm.renderForm());
             formPanel2.withContent(deleteForm.renderForm());
 
-            return super.render(request);
+            return super.toHtml(request);
 
         } catch (BackOfficeException e) {
 
             PukkaLogger.log( e );
         }
 
-        return "Error rendering page";
+        return new HtmlBlock("Error rendering page");
 
     }
 

@@ -1,5 +1,7 @@
 package backoffice.pages.tab;
 
+import backoffice.style.HtmlBlock;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +48,7 @@ public class TabPanel implements TabPanelInterface {
 
     public String render(String activeTab, HttpServletRequest request){
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
         System.out.println("Active tab = " + activeTab);
 
 

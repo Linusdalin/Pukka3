@@ -4,6 +4,7 @@ import backoffice.common.Location;
 import backoffice.form.FormInterface;
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
+import backoffice.style.HtmlBlock;
 import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,27 +37,16 @@ public class TestPage extends GenericPage implements PageInterface {
      */
 
 
-    public String render(HttpServletRequest request){
+    public HtmlBlock toHtml(HttpServletRequest request){
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
 
-               html.append(new PageHeader("Form 1").render());
+        html.append(new PageHeader("Form 1").toHtml());
+        html.append(form.renderForm());
+        html.append(form.getTargetDiv());
 
-               html.append(form.renderForm());
-
-               html.append(form.getTargetDiv());
-
-               return html.toString();
+        return html;
     }
 
-
-    /*
-    @Override
-    public String renderDataScripts(){
-
-        return  new TestForm(new Location("TestPage")).getSubmitScript();
-
-    }
-      */
 
 }

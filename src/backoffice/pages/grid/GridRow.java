@@ -1,6 +1,7 @@
 package backoffice.pages.grid;
 
 import backoffice.errorHandling.BackOfficeException;
+import backoffice.style.HtmlBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +45,12 @@ public class GridRow {
         return this;
     }
 
-    public String render() throws BackOfficeException{
+    public HtmlBlock render() throws BackOfficeException{
 
         if(noColumns != columns.size())
             throw new BackOfficeException(BackOfficeException.Type.CONFIGURATION, "Expecting "+ noColumns+" columns n row. Found " + columns.size());
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
         html.append("            <div class=\"row\">\n");
 
         for (GridColumn column : columns) {
@@ -58,7 +59,7 @@ public class GridRow {
         }
 
         html.append("            </div> <!-- row -->\n");
-        return html.toString();
+        return html;
     }
 
 

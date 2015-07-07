@@ -1,6 +1,7 @@
 package backoffice.pages.grid;
 
 import backoffice.errorHandling.BackOfficeException;
+import backoffice.style.HtmlBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,18 +46,18 @@ public class GridColumn {
      * @return      - html
      */
 
-    public String render(){
+    public HtmlBlock render(){
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
         html.append("                <div class=\"col-lg-"+width+"\">\n");
 
         for (PanelInterface panel : panels) {
 
-            html.append(panel.render());
+            html.append(panel.toHtml());
         }
         html.append("                </div> <!-- column -->\n");
 
-        return html.toString();
+        return html;
     }
 
 }

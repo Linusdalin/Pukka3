@@ -1,5 +1,8 @@
 package backoffice.table;
 
+import backoffice.errorHandling.BackOfficeException;
+import backoffice.style.HtmlBlock;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Linus
@@ -7,7 +10,7 @@ package backoffice.table;
  * Time: 11:01
  * To change this template use File | Settings | File Templates.
  */
-public class Table implements TableInterface {
+public abstract class Table implements TableInterface {
 
 
 
@@ -16,9 +19,9 @@ public class Table implements TableInterface {
     }
 
 
-    public String render(){
+    public HtmlBlock toHtml() throws BackOfficeException{
 
-        return
+        return  new HtmlBlock(
                 "<div class=\"dataTable_wrapper\">\n" +
                         "                                <table class=\"table table-striped table-bordered table-hover\" id=\"dataTables-example\">\n" +
                         "                                    <thead>\n" +
@@ -42,9 +45,17 @@ public class Table implements TableInterface {
                                 "        });\n" +
                                 "    });\n" +
                                 "    </script>\n" +
-                        "\n\n";
+                        "\n\n");
 
     }
+
+
+    public String getJSON() throws BackOfficeException {
+
+        throw new BackOfficeException(BackOfficeException.Type.NOT_IMPLEMENTED, "Calling getJSON without implementation");
+    }
+
+
 
 
     public String renderStatic(){

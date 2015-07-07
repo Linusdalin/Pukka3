@@ -1,6 +1,7 @@
 package backoffice.style.dropdown;
 
 import backoffice.style.Html;
+import backoffice.style.HtmlBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class Dropdown extends GenericDropDown implements DropDownInterface {
 
     }
 
-    public String render() {
+    public HtmlBlock render() {
 
         return generateSelect(options);
     }

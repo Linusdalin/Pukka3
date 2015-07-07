@@ -5,6 +5,7 @@ import backoffice.errorHandling.LogLevel;
 import backoffice.errorHandling.PukkaLogger;
 import backoffice.links.InternalLink;
 import backoffice.menu.Icon;
+import backoffice.style.HtmlBlock;
 import backoffice.table.TableInterface;
 
 /**
@@ -66,9 +67,9 @@ public class KPIPanel extends GenericPanel implements PanelInterface{
     }
 
 
-    public String render(){
+    public HtmlBlock toHtml(){
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
 
         html.append("   <div class=\"panel panel-"+type.getClassName()+"\">\n");
         html.append(
@@ -101,7 +102,7 @@ public class KPIPanel extends GenericPanel implements PanelInterface{
                 "                        </div>\n" +
                 "                    </div>\n");
 
-        return html.toString();
+        return html;
     }
 
     /********************************************************************************'

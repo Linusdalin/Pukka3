@@ -21,4 +21,9 @@ public class AbstractKey implements DBKeyInterface {
 
         return abstractReference;
     }
+
+    public String getKey(){
+
+        return abstractReference;
+    }
 }

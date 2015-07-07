@@ -86,4 +86,9 @@ public class AppEngineKey implements DBKeyInterface {
     }
 
 
+    public String getKey(){
+
+        return toString();
+    }
+
 }

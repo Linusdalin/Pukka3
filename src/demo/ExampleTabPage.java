@@ -2,6 +2,7 @@ package demo;
 
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
+import backoffice.style.HtmlBlock;
 import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,17 +30,17 @@ public class ExampleTabPage extends GenericPage implements PageInterface {
      */
 
 
-    public String render(HttpServletRequest request){
+    public HtmlBlock toHtml(HttpServletRequest request){
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
 
         String activeTab = request.getParameter("tab");
 
-        html.append(new PageHeader("Example tabs").render());
+        html.append(new PageHeader("Example tabs").toHtml());
 
         html.append(new ExampleTabPanel().render(activeTab, request));
 
-        return html.toString();
+        return html;
     }
 
 

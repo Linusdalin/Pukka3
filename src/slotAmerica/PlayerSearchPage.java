@@ -8,6 +8,7 @@ import backoffice.menu.Icon;
 import backoffice.pages.PageInterface;
 import backoffice.pages.grid.*;
 import backoffice.pages.template.GridPage;
+import backoffice.style.HtmlBlock;
 import backoffice.style.pageComponents.PageHeader;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class PlayerSearchPage extends GridPage implements PageInterface {
 
     PanelInterface tablePanel = new Panel()
             .withTop(Icon.bars, "Latest Payments")
-            .withContent("...")
+            .withContent(new HtmlBlock("..."))
             .withBottom("");
 
 
@@ -75,7 +76,7 @@ public class PlayerSearchPage extends GridPage implements PageInterface {
      */
 
 
-    public String render(HttpServletRequest request){
+    public HtmlBlock toHtml(HttpServletRequest request){
 
         try{
 
@@ -84,14 +85,14 @@ public class PlayerSearchPage extends GridPage implements PageInterface {
             searchForm.populateValues(request);
             formPanel1.withContent(searchForm.renderForm());
 
-            return super.render(request);
+            return super.toHtml(request);
 
         } catch (BackOfficeException e) {
 
             PukkaLogger.log( e );
         }
 
-        return "Error rendering page";
+        return new HtmlBlock("Error rendering page");
 
     }
 

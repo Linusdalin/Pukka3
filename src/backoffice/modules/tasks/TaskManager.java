@@ -1,5 +1,7 @@
 package backoffice.modules.tasks;
 
+import backoffice.style.HtmlBlock;
+
 /**
  *
  *          Not implemented. Rendering a default placeholder
@@ -12,9 +14,9 @@ public class TaskManager {
 
     }
 
-    public String render(){
+    public HtmlBlock render(){
 
-        return
+        return new HtmlBlock(
                         "                <li class=\"dropdown\">\n" +
                         "                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">\n" +
                         "                        <i class=\"fa fa-tasks fa-fw\"></i>  <i class=\"fa fa-caret-down\"></i>\n" +
@@ -92,7 +94,7 @@ public class TaskManager {
                         "                        </li>\n" +
                         "                    </ul>\n" +
                         "                    <!-- /.dropdown-tasks -->\n" +
-                        "                </li>\n";
+                        "                </li>\n");
 
     }
 }

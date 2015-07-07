@@ -85,7 +85,7 @@ import dataModel.table.DataTableInterface;
  *           - Add lists with actions
  *           - Add group by list
  *           - Create 2 appropriate Pukka3 artifacts (appStore and MySQL)
- *
+ *           - Change all String/StringBuffer to passing a proper HTML object
  *
  *
  *           =====  Replace itClarifies Backoffice ===

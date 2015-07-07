@@ -1,5 +1,7 @@
 package backoffice.menu;
 
+import backoffice.style.HtmlBlock;
+
 /**
  *
  *       BackOffice Menu
@@ -32,9 +34,9 @@ public class Menu {
      * @return
      */
 
-    public String render(){
+    public HtmlBlock render(){
 
-        StringBuffer menu = new StringBuffer();
+        HtmlBlock menu = new HtmlBlock();
 
         menu.append(    "            <div class=\"navbar-default sidebar\" role=\"navigation\">\n" +
                         "                <div class=\"sidebar-nav navbar-collapse\">\n" +
@@ -66,7 +68,7 @@ public class Menu {
 
         );
 
-        return menu.toString();
+        return menu;
     }
 
     public String renderNew(){

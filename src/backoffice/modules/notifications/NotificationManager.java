@@ -1,5 +1,7 @@
 package backoffice.modules.notifications;
 
+import backoffice.style.HtmlBlock;
+
 /**
  *
  *          Not implemented. Rendering a default placeholder
@@ -12,9 +14,9 @@ public class NotificationManager {
 
     }
 
-    public String render(){
+    public HtmlBlock render(){
 
-        return
+        return new HtmlBlock(
                         "                <!-- /.dropdown -->\n" +
                         "                <li class=\"dropdown\">\n" +
                         "                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">\n" +
@@ -75,7 +77,7 @@ public class NotificationManager {
                         "                    </ul>\n" +
                         "                    <!-- /.dropdown-alerts -->\n" +
                         "                </li>\n" +
-                        "                <!-- /.dropdown -->\n";
+                        "                <!-- /.dropdown -->\n");
 
     }
 }

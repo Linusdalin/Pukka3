@@ -4,6 +4,7 @@ import backoffice.common.Location;
 import backoffice.form.FormInterface;
 import backoffice.pages.GenericPage;
 import backoffice.pages.PageInterface;
+import backoffice.style.HtmlBlock;
 import backoffice.style.pageComponents.PageHeader;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,11 +37,11 @@ public class AboutRewardsPage extends GenericPage implements PageInterface {
      */
 
 
-    public String render(HttpServletRequest request){
+    public HtmlBlock toHtml(HttpServletRequest request){
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
 
-        html.append(new PageHeader("About Rewards").render());
+        html.append(new PageHeader("About Rewards").toHtml());
 
 
         html.append("<pre>\n" +
@@ -75,7 +76,7 @@ public class AboutRewardsPage extends GenericPage implements PageInterface {
            "===================================================================" +
            "</pre>");
 
-        return html.toString();
+        return html;
     }
 
 

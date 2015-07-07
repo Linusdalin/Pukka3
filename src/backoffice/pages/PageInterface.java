@@ -1,6 +1,7 @@
 package backoffice.pages;
 
 import backoffice.errorHandling.BackOfficeException;
+import backoffice.style.HtmlBlock;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface PageInterface {
 
 
-    String render(HttpServletRequest request) throws BackOfficeException;
-    String renderDataScripts();
+    HtmlBlock toHtml(HttpServletRequest request) throws BackOfficeException;
+    HtmlBlock renderDataScripts();
     String getName();
 }

@@ -10,5 +10,7 @@ package dataModel.databaseLayer;
 public interface DBKeyInterface {
 
     public String toString();
+    public Object getKey();
+
 
 }

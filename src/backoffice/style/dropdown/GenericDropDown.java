@@ -1,6 +1,8 @@
 package backoffice.style.dropdown;
 
 import backoffice.style.Html;
+import backoffice.style.HtmlBlock;
+
 import java.util.List;
 
 /**********************************************************************
@@ -50,9 +52,9 @@ public abstract class GenericDropDown implements DropDownInterface {
 
     //TODO: Handle missing name/id here
 
-    protected String generateSelect(List<String> options) {
+    protected HtmlBlock generateSelect(List<String> options) {
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
         html.append("             <select id=\"" + id + "\" class=\""+ cssClass +"\" name=\"" + name + "\" ");
 
         if(onChange)
@@ -72,7 +74,7 @@ public abstract class GenericDropDown implements DropDownInterface {
         html.append("              </select>\n\n");
 
 
-        return html.toString();
+        return html;
     }
 
 

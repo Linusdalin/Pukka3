@@ -1,5 +1,7 @@
 package backoffice.style.dropdown;
 
+import backoffice.style.HtmlBlock;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Linus
@@ -9,13 +11,13 @@ package backoffice.style.dropdown;
  */
 public interface DropDownInterface {
 
-    public DropDownInterface withOnChangeEvent();
-    public DropDownInterface withName(String name);
-    public DropDownInterface withId(String id);
-    public DropDownInterface withClass(String cssClass);
-    public DropDownInterface withUnselected(String display);
+    DropDownInterface withOnChangeEvent();
+    DropDownInterface withName(String name);
+    DropDownInterface withId(String id);
+    DropDownInterface withClass(String cssClass);
+    DropDownInterface withUnselected(String display);
 
-    String render();
+    HtmlBlock render();
 
 
 }

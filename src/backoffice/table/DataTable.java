@@ -1,6 +1,8 @@
 package backoffice.table;
 
 
+import backoffice.errorHandling.BackOfficeException;
+
 /******************************************************************************''
  *
  *          Standard functionality for the DataTables functionality
@@ -8,6 +10,7 @@ package backoffice.table;
  */
 
 abstract class DataTable implements TableInterface {
+
 
 
 }

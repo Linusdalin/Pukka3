@@ -1,6 +1,7 @@
 package backoffice.style.pageComponents;
 
 import backoffice.common.BackofficeInterface;
+import backoffice.style.HtmlBlock;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,10 +20,10 @@ public class BrandTitle {
     }
 
 
-    public String render(){
+    public HtmlBlock render(){
 
-        return
-                "                <a class=\"navbar-brand\" href=\"/home\">"+ backoffice.getSystemTitle()+"</a>\n";
+        return new HtmlBlock(
+                "                <a class=\"navbar-brand\" href=\"/home\">"+ backoffice.getSystemTitle()+"</a>\n");
 
     }
 }

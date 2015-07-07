@@ -1,5 +1,7 @@
 package backoffice.pages.grid;
 
+import backoffice.style.HtmlBlock;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +33,9 @@ public class Accordion {
         return this;
     }
 
-    public String render() {
+    public HtmlBlock toHtml() {
 
-        StringBuffer html = new StringBuffer();
+        HtmlBlock html = new HtmlBlock();
         html.append("                            <div class=\"panel-group\" id=\"accordion\">\n");
 
         int sectionNo = 0;
@@ -45,6 +47,6 @@ public class Accordion {
 
         html.append("                            </div>   <!-- panel group -->\n");
 
-        return html.toString();
+        return html;
     }
 }
